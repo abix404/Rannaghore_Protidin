@@ -20,5 +20,6 @@ from rannaghoreprotidinapp import views as s_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', s_view.home, name='home')
+    path('', s_view.home, name='home'),
+    path('about_us/',s_view.home, name='about_us' )
 ]
