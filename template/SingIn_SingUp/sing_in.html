@@ -1,18 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sing In</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../static/style.css">
     <meta charset="UTF-8">
     <title>Sing In</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
-
 <body>
-
     <div class="wrapper">
     <form action="">
         <h1>Login</h1>
@@ -35,7 +35,7 @@
     <p><button type="submit" class="btn">Login</button></p>
     <div class="register-link">
         <p> Don't have an account?
-            <a href="#">Register</a> </p>
+            <a href="{% url 'sing_up' %}">Register</a> </p>
     </div>
 
     </form>
