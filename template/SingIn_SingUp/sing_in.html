@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Sing In</title>
-    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="../../static/style_sing_in.css">
     <meta charset="UTF-8">
     <title>Sing In</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_sing_in.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
@@ -36,6 +36,11 @@
     <div class="register-link">
         <p> Don't have an account?
             <a href="{% url 'sing_up' %}">Register</a> </p>
+    </div>
+
+    <div class="back-to-home">
+        <p> Back to
+            <a href="{% url 'home'%}">Home</a> </p>
     </div>
 
     </form>

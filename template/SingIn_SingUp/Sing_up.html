@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="../../static/style_SU.css">
-    <link href='{% static "/style_SU.css" %}' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../../static/style_sing_up.css">
+    <link href='{% static "/style_sing_up.css" %}' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div class="container">
@@ -28,6 +28,10 @@
                     </label>
                     <a href="#">Terms & conditions</a>
                 </div>
+                     <div class="back-to-home">
+                        <p> Back to
+                            <a href="{% url 'home'%}">Home</a> </p>
+                     </div>
             </form>
         </div>
     </div>

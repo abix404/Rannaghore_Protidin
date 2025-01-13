@@ -142,3 +142,17 @@ input[type="password"]::placeholder {
     margin-right: 5px;
     accent-color: #fff;
 }
+.back-to-home{
+    font-size:14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+.back-to-home p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+.back-to-home p a:hover{
+    text-decoration: underline;
+    color: aqua;
+}
