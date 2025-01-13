@@ -10,7 +10,7 @@ class UserInfo(models.Model):
     email=models.EmailField()
     bio=models.CharField(max_length=200,null=True,blank=True)
 
-class Product(models.Model):
+class Products(models.Model):
     name=models.CharField(max_length=100,blank=False,null=False)
     price=models.IntegerField(blank=True,null=True)
     categories=models.CharField(max_length=50,blank=True,null=True)
@@ -23,12 +23,12 @@ def __str__(self):
 
 class Cart(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
-    product=models.ForeignKey(Product, on_delete=models.CASCADE,blank=True,null=True)
+    product=models.ForeignKey(Products, on_delete=models.CASCADE,blank=True,null=True)
 
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
     ctrate_date=models.DateTimeField(auto_now_add=True,auto_now=False)
     order_id=models.IntegerField(unique=True)
 
