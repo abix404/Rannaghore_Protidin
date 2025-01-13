@@ -23,5 +23,8 @@ urlpatterns = [
     path('', s_views.home, name='home'),
     path('about_us/',s_views.about_us, name='about_us'),
 
-    path('sing_in/',s_views.sing_in, name='sing_in')
+    path('sing_in/',s_views.sing_in, name='sing_in'),
+
+path('sing_up/',s_views.sing_up, name='sing_up')
+
 ]

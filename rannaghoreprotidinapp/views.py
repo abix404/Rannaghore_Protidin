@@ -9,3 +9,6 @@ def about_us(request):
 
 def sing_in(request):
     return render(request, template_name='SingIn_SingUp/sing_in.html')
+
+def sing_up(request):
+    return render(request, template_name='SingIn_SingUp/sing_up.html')
