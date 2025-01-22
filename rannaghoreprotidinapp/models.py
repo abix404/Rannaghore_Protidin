@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -12,11 +14,17 @@ class UserInfo(models.Model):
 
 class Products(models.Model):
     name=models.CharField(max_length=100,blank=False,null=False)
+    p_id=models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
     price=models.IntegerField(blank=True,null=True)
     categories=models.CharField(max_length=50,blank=True,null=True)
     short_description=models.CharField(max_length=100, blank=False,null=False)
     brief_description=models.CharField(max_length=500)
     brand=models.CharField(max_length=20)
+    image=models.ImageField(upload_to='media/products_img', blank=True,null=True, default='')
     sku=models.IntegerField(unique=True)
 def __str__(self):
     return self.name

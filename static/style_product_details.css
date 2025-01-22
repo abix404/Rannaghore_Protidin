@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+.image-gallery {
+    flex: 1 1 40%;
+}
+.image-gallery img {
+    width: 100%;
+    border-radius: 5px;
+}
+.product-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.product-thumbnails img {
+    width: 60px;
+    cursor: pointer;
+}
+.details {
+    flex: 1 1 60%;
+}
+.price {
+    color: #ff4d4f;
+    font-size: 24px;
+    font-weight: bold;
+}
+.original-price {
+    text-decoration: line-through;
+    color: #aaa;
+    margin-left: 10px;
+}
+.discount {
+    color: #4caf50;
+    font-size: 16px;
+    margin-left: 10px;
+}
+.description, .categories, .sku, .brand {
+    margin-top: 15px;
+    font-size: 14px;
+}
+.description ul {
+    padding-left: 20px;
+}
+.btn-container {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.button {
+    padding: 10px 20px;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.quantity input {
+    width: 40px;
+    text-align: center;
+}
+.download-links {
+    margin-top: 15px;
+}
+.download-links a {
+    margin-right: 10px;
+    color: #0073e6;
+}

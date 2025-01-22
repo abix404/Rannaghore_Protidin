@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+     <link rel="stylesheet" href="../../static/style_product_details.css">
+</head>
+<body>
+{% include 'shop/navbar.html' %}
+<div class="container">
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+        <img src="cerave-hydrating-cleanser.png" alt="Cerave Hydrating Cleanser">
+        <div class="product-thumbnails">
+            <img src="thumbnail1.jpg" alt="Thumbnail 1">
+            <img src="thumbnail2.jpg" alt="Thumbnail 2">
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="details">
+        <h1>{{products.name}}</h1>
+        <p>{{products.brand}}</p>
+        <p class="price">
+            {{ products.price }}
+            <span class="original-price">{{ products.price }}</span>
+            <span class="discount">Save ৳751.00 (20% OFF)</span>
+        </p>
+        <div class="quantity">
+            <button class="button" style="background-color: #f0f0f0; color: #333;">-</button>
+            <input type="number" value="1" min="1">
+            <button class="button" style="background-color: #f0f0f0; color: #333;">+</button>
+            <button class="button">ADD TO CART</button>
+        </div>
+        <div class="description">
+            <h3>{{ products.brief_description }}</h3>
+            <ul>
+
+            </ul>
+        </div>
+        <div class="sku"><strong>SKU: </strong>{{ products.sku }}</div>
+        <div class="categories">
+            <strong>Categories:</strong> {{ products.categories }}
+        </div>
+    </div>
+</div>
+{% include 'shop/footer.html' %}
+</body>

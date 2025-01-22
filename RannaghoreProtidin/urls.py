@@ -28,6 +28,10 @@ urlpatterns = [
 
     path('sing_in/',s_views.sing_in, name='sing_in'),
 
-path('sing_up/',s_views.sing_up, name='sing_up')
+    path('sing_up/',s_views.sing_up, name='sing_up'),
+
+    path('/<str:id>',s_views.product_details, name = 'product_details')
+
+
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -12,6 +12,15 @@ def home(request):
         'products' : products,
     }
     return render(request, template_name='shop/home.html', context=context)
+
+def product_details(request,id):
+    products = Products.objects.get(pk = id)
+    context = {
+        'product':product,
+    }
+    return render(request,template_name = 'shop\product_details.html',context = context)
+
+
 def about_us(request):
     return render(request, template_name='shop/about_us.html')
 
