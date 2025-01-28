@@ -1,5 +1,55 @@
-{% extends 'base.html' %}
-{% block content %}
-<h4 align="center">Welcome to</h4>
-<h1 align="center">Rannaghore Protidin</h1>
-{% endblock %}
+<!DOCTYPE html>
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+    <link rel="stylesheet" href="../../static/css/home_style.css">
+
+</head>
+<body>
+{% include 'shop/navbar.html' %}
+   <section id="slider">
+    <h4>Trande in offer</h4>
+    <h2>Super Deals</h2>
+    <p>Best deal in our website</p>
+    <button>Shop Now</button>
+    
+   </section>
+
+   <section id="feature">
+    <div class="fe-box">
+        <img src="">
+
+    </div>
+   </section>
+
+   <section id="products" class="section-p1">
+    <h2> Feature Products</h2>
+    <p></p>
+    <div class="pro-container">
+        <div class="pro">
+            <img src="img/product1.jpg">
+            <div class="des">
+            <span>Rannaghore Protidin</span>  
+            <h2>Hawai Shirt</h2>  
+              <div class="star">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+            <h4>Price</h4>
+            <button href="{% url 'product_details' p.p_id %}">Details</button>
+            </div>
+            <div class="cart">
+              <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+   </section>
+
+
+{% include 'shop/footer.html' %}
+</body>
