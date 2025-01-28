@@ -2,7 +2,7 @@
 
 /*Home page Slider*/
 #slider{
-    background-image:url(img/slider1.png);
+    background-image:url(media/products_img/slider1.png);
     height:90vh;
     width: 100%;
     background-size: cover;
@@ -24,7 +24,7 @@
 
 }
 #slider button{
-    background-image: url(img/button.png);
+    background-image: url(media/products_img/button.png);
     background-color: transparent;
     color:black;
     border: 0px;
