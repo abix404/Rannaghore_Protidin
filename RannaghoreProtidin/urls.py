@@ -30,7 +30,7 @@ urlpatterns = [
 
     path('sing_up/',s_views.sing_up, name='sing_up'),
 
-    path('/<str:id>',s_views.product_details, name = 'product_details')
+    path('<str:id>',s_views.product_details, name = 'product_details')
 
 
 
