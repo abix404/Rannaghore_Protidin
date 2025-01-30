@@ -1,5 +1,4 @@
 
-
 /*Home page Slider*/
 #slider{
     background-image:url(media/products_img/slider1.png);
@@ -26,7 +25,7 @@
 #slider button{
     background-image: url(media/products_img/button.png);
     background-color: transparent;
-    color:black;
+    color: #000000;
     border: 0px;
     padding: 20px 40px 5px 65px;
     background-repeat: no-repeat;
@@ -70,8 +69,8 @@
     padding: 10px 0;
 }
 
-#products .pro .des .button{
-    color: white;
+#products .pro .des button{
+    color: #ffffff;
 }
 
 #products .pro .cart{
