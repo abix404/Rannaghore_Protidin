@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<head>
-    <title>Home Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
-    <link rel="stylesheet" href="../../static/css/home_style.css">
+{% extends "base.html" %}
+{% load static %}
 
-</head>
-<body>
-{% include 'shop/navbar.html' %}
+{% block title %}Home - My Website{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="../../static/css/home_style.css">
+
+{% endblock %}
+{% block content %}
    <section id="slider">
     <h4>Trade in offer</h4>
     <h2>Super Deals</h2>
@@ -25,9 +27,10 @@
    <section id="products" class="section-p1">
     <h2> Feature Products</h2>
     <p></p>
+    {% for p in products %}
     <div class="pro-container">
         <div class="pro">
-            <img src="img/product1.jpg">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 300px;">
             <div class="des">
             <span>{{ p.brand }}</span>
             <h2>{{ p.name}}</h2>
@@ -39,7 +42,7 @@
                 <i class="fa fa-star"></i>
               </div>
             <h4>{{ p.price }}</h4>
-            <button href="#">Details</button>
+            <button href="{% url 'product_details' p.p_id %}">Details</button>
             </div>
             <div class="cart">
               <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
@@ -48,8 +51,6 @@
         </div>
 
     </div>
+   {% endfor %}
    </section>
-
-
-{% include 'shop/footer.html' %}
-</body>
+{% endblock %}

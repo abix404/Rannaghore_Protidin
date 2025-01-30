@@ -65,6 +65,10 @@
     padding: 10px 0;
 }
 
+#products .pro .des .button{
+    color: white;
+}
+
 #products .pro .cart{
     text-align: center;
     padding: 5px 0;

@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Product Details{% endblock %}
+
+{% block extra_css %}
      <link rel="stylesheet" href="../../static/css/style_product_details.css">
-</head>
-<body>
-{% include 'shop/navbar.html' %}
+{% endblock %}
+{% block content %}
 <div class="container">
     <!-- Image Gallery -->
     <div class="image-gallery">
@@ -45,5 +44,4 @@
         </div>
     </div>
 </div>
-{% include 'shop/footer.html' %}
-</body>
+{% endblock %}
