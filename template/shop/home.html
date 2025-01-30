@@ -23,14 +23,17 @@
 
     </div>
    </section>
+    <section >
+    <h2 align="center">Feature Product</h2>
+        <p align="center">Top Collections</p>
+    </section>
 
    <section id="products" class="section-p1">
-    <h2> Feature Products</h2>
     <p></p>
     {% for p in products %}
     <div class="pro-container">
         <div class="pro">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+            <img src="{{ p.image.url }}" alt="{{ p.name }}" style="max-width: 300px;">
             <div class="des">
             <span>{{ p.brand }}</span>
             <h2>{{ p.name}}</h2>

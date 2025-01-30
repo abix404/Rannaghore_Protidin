@@ -24,7 +24,7 @@ class Products(models.Model):
     short_description=models.CharField(max_length=100, blank=False,null=False)
     brief_description=models.CharField(max_length=500)
     brand=models.CharField(max_length=20)
-    image=models.ImageField(upload_to='media/products_img', blank=True,null=True, default='')
+    image=models.ImageField(upload_to='products_img', blank=True,null=True, default='no_image.png')
     sku=models.IntegerField(unique=True)
 def __str__(self):
     return self.name

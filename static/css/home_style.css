@@ -4,7 +4,7 @@
 #slider{
     background-image:url(media/products_img/slider1.png);
     height:90vh;
-    width: 100%;
+    width: 80%;
     background-size: cover;
     background-position: top 25% right 0;
     padding: 0 80px;
@@ -37,6 +37,9 @@
 
 #products{
     text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
 }
 
 #products .pro{
@@ -51,6 +54,8 @@
     transition: 0.02s ease;
 
 }
+
+
 #products .pro:hover{
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
 }
