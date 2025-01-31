@@ -1,46 +1,57 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Product Details{% endblock %}
+{% block title %}{{ product.name }} - Details{% endblock %}
 
 {% block extra_css %}
-     <link rel="stylesheet" href="../../static/css/style_product_details.css">
+    <link rel="stylesheet" href="{% static 'css/style_product_details.css' %}">
 {% endblock %}
+
 {% block content %}
-<div class="container">
-    <!-- Image Gallery -->
-    <div class="image-gallery">
-        <img src="" alt="">
-        <div class="product-thumbnails">
-            <img src="" alt="">
-            <img src="" alt="">
+<div class="container mt-5">
+    <div class="row">
+        <!-- Product Image Section -->
+        <div class="col-md-5">
+            <div class="image-gallery">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid main-image">
+                <div class="product-thumbnails mt-3 d-flex">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="thumb-img">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="thumb-img">
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Product Details -->
-    <div class="details">
-        <h1>{{products.name}}</h1>
-        <p>{{products.brand}}</p>
-        <p class="price">
-            {{ products.price }}
-            <span class="original-price">{{ products.price }}</span>
-            <span class="discount">Save ৳751.00 (20% OFF)</span>
-        </p>
-        <div class="quantity">
-            <button class="button" style="background-color: #f0f0f0; color: #333;">-</button>
-            <input type="number" value="1" min="1">
-            <button class="button" style="background-color: #f0f0f0; color: #333;">+</button>
-            <button class="button">ADD TO CART</button>
-        </div>
-        <div class="description">
-            <h3>{{ products.brief_description }}</h3>
-            <ul>
+        <!-- Product Details Section -->
+        <div class="col-md-7">
+            <h1>{{ product.name }}</h1>
+            <p><strong>Brand:</strong> {{ product.brand }}</p>
 
-            </ul>
-        </div>
-        <div class="sku"><strong>SKU: </strong>{{ products.sku }}</div>
-        <div class="categories">
-            <strong>Categories:</strong> {{ products.categories }}
+            <!-- Price Section -->
+            <p class="price">
+                <strong>৳{{ product.price }}</strong>
+                <span class="original-price">৳{{ product.price }}</span>
+                <span class="discount">Save ৳0.00 (0% OFF)</span>
+            </p>
+
+            <!-- Quantity and Add to Cart -->
+            <div class="quantity mb-3">
+                <button class="btn btn-outline-secondary">-</button>
+                <input type="number" value="1" min="1" class="quantity-input">
+                <button class="btn btn-outline-secondary">+</button>
+                <button class="btn btn-primary">ADD TO CART</button>
+            </div>
+
+            <!-- Brief Description -->
+            <div class="description">
+                <h3>Description</h3>
+                <p>{{ product.brief_description }}</p>
+            </div>
+
+            <!-- SKU and Categories -->
+            <div class="product-info">
+                <p><strong>SKU:</strong> {{ product.sku }}</p>
+                <p><strong>Categories:</strong> {{ product.categories }}</p>
+            </div>
         </div>
     </div>
 </div>

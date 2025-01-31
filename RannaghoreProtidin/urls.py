@@ -33,6 +33,8 @@ urlpatterns = [
 
     path('<str:id>',s_views.product_details, name = 'product_details'),
 
+    path('product/<uuid:p_id>/', s_views.product_details, name='product_details'),
+
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

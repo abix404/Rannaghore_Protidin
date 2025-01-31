@@ -45,7 +45,9 @@
                 <i class="fa fa-star"></i>
               </div>
             <h4>{{ p.price }}</h4>
-            <button href="{% url 'product_details' p.p_id %}">Details</button>
+                <a href="{% url 'product_details' p.p_id %}">
+                    <button>Details</button>
+                </a>
             </div>
             <div class="cart">
               <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
