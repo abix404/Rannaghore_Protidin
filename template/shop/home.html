@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home - My Website{% endblock %}
+{% block title %}Home Page{% endblock %}
 
 {% block extra_css %}
 
@@ -47,7 +47,7 @@
               </div>
             <h4>Price ৳{{ p.price }}</h4>
                 <a href="{% url 'product_details' p.p_id %}">
-                    <button>Details</button>
+                <button>Details</button>
                 </a>
             </div>
             <div class="cart" style="font-size:20px">
@@ -55,7 +55,6 @@
             </div>
 
         </div>
-
     </div>
    {% endfor %}
    </section>
