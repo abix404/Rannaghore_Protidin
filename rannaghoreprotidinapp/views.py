@@ -20,7 +20,7 @@ def home(request):
 
 def product_details(request, p_id):
     products = get_object_or_404(Products, p_id=p_id)
-    return render(request, "shop/product_details.html", {"product": product})
+    return render(request, 'shop/product_details.html', {'product': product})
 
 
 def about_us(request):

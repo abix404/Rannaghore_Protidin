@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 from django.urls import path
 from rannaghoreprotidinapp import views as s_views
 from django.urls import include,path
@@ -31,9 +32,9 @@ urlpatterns = [
 
     path('sing_up/',s_views.sing_up, name='sing_up'),
 
-    path('<str:id>',s_views.product_details, name = 'product_details'),
-
     path('product/<uuid:p_id>/', s_views.product_details, name='product_details'),
+
+    path(r'^favicon\.ico$',RedirectView.as_view(url='/static/assets/favicon.ico')),
 
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

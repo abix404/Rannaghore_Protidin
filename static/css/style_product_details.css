@@ -22,7 +22,8 @@ body {
 
 .tabs button {
     border: none;
-    background: #f4f4f4;
+    background: #4e0000;
+    color: white;
     padding: 10px;
     cursor: pointer;
 }
