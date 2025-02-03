@@ -15,7 +15,7 @@
       }
 
       .navbar{
-        background: #ffffff;
+        background: #F8F9FA;
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         padding-right: 15px;
         padding-left: 15px ;
@@ -33,7 +33,7 @@
       .logo a{
         font-size: 35px;
         font-weight:500;
-        color: #81053FFF;
+        color: #2A9D8F;
       }
 
       li{
@@ -42,21 +42,23 @@
       }
 
       li a{
-        color: #040000;
+        color: #333333;
         font-size: 18px;
         font-weight: bold;
         margin-right: 25px;
       }
 
       button{
-        background-color: black;
-        margin-left: 10px;
+        background-color: #2A9D8F;
+        margin-left: 15px;
         margin-top: 10px;
         border-radius: 10px;
         padding: 10px;
         width: 90px;
       }
-
+      .fa-shopping-cart{
+          padding-right: 20px;
+      }
       button a{
         color: white;
         font-weight: bold;
@@ -67,11 +69,12 @@
 <body>
     <nav class="navbar">
       <div class="navdiv">
-        <div class="logo"><a href="#">Rannaghore Protidin</a></div>
+        <div class="logo"><a href="{%url 'home'%}">Rannaghore Protidin</a></div>
           <ul>
               <li><a href="{%url 'home'%}">Home</a></li>
               <li><a href="{% url 'about_us' %}">About Us</a></li>
-              <li><a href="#">Catogary</a></li>
+              <li><a href="#">Category </a></li>
+              <li><i class="fa fa-shopping-cart" style="font-size:24px"></i></li>
               <button><a href="{% url 'sing_in' %}">SingIn</a></button>
               <button><a href="{% url 'sing_up' %}">SingUp</a></button>
           </ul>
