@@ -1,39 +1,9 @@
-
-/*Home page Slider*/
-#slider{
-    background-image:url(media/products_img/slider1.png);
-    height:90vh;
-    width: 80%;
-    background-size: cover;
-    background-position: top 25% right 0;
-    padding: 0 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-
+.title p{
+   text-align: center;
+   font-size: 30px;
+   font-family: Forte;
+   color: #2A9D8F;
 }
-
-#slider h4{
-    padding-bottom: 15px;
-}
-
-#slider h2{
-    color: cornflowerblue;
-
-}
-#slider button{
-    background-image: url(media/products_img/button.png);
-    background-color: transparent;
-    color: #000000;
-    border: 0px;
-    padding: 20px 40px 5px 65px;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 15px;
-}
-
 #products{
     text-align: center;
     display: flex;
