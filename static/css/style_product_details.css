@@ -124,7 +124,17 @@ body {
 }
 
 .btn.favorite {
-    background: red;
+    background: #1a6c61;
+}
+.btn_1.order {
+    background: #2f81fc;
+    color:white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+
+
 }
 
 .delivery, .return-policy {
