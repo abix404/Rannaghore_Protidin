@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.template import Context
 from .models import *
+from .models import Products, Order
 
 # Create your views here.
 
@@ -56,3 +57,27 @@ def sing_up(request):
 def sing_out_view(request):
     logout(request)
     return redirect('sing_in')  # Redirect to login page after logout
+
+@login_required
+def order_page(request, p_id):
+    try:
+        product = Products.objects.get(id=p_id)
+    except Products.DoesNotExist:
+        return redirect('home')  # Redirect if product doesn't exist
+
+    # Generate Order Number (Example: RP-0001)
+    order_number = f"RP-{Order.objects.count() + 1:04d}"
+
+    # Pass data to the template
+    context = {
+        'user_name': request.user.username,
+        'order_number': order_number,
+        'product_name': product.name,
+        'quantity': 1,  # Default quantity
+        'status': 'Ordered'  # Default status
+    }
+
+    return render(request, 'shop/order.html', context)
+
+
+
