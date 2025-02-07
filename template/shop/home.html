@@ -35,12 +35,12 @@
                 <i class="fa fa-star"></i>
               </div>
             <h4>Price ৳{{ p.price }}</h4>
+                <div class="details">
                 <a href="{% url 'product_details' p.p_id %}">
                 <button>Details</button>
                 </a>
-            </div>
-            <div class="cart" style="font-size:20px">
-              <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                <a style="font-size: 25px" href="#"><i class="fa fa-cart-plus cart-icon" aria-hidden="true"></i></a>
+                </div>
             </div>
         </div>
     </div>

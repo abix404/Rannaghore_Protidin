@@ -37,15 +37,19 @@
 
 #products .pro .des{
     text-align: start;
-    padding: 10px 0;
+    padding: 10px ;
 }
+#products .pro .des .details .cart-icon{
+    padding-left: 50px;
+    color: #2A9D8F;
 
-#products .pro .des button{
+
+}
+#products .pro .des .details button{
+    font-style:italic ;
+    font-weight:bold;
+    cursor: pointer;
     color: #ffffff;
+
 }
 
-#products .pro .cart{
-    text-align: center;
-    padding: 5px 0;
-    size: 30px;
-}
