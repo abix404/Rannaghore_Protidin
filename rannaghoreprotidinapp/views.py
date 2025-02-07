@@ -20,8 +20,8 @@ def home(request):
     return render(request, template_name='shop/home.html', context=context)
 
 def product_details(request, p_id):
-    products = get_object_or_404(Products, p_id=p_id)
-    return render(request, 'shop/product_details.html', {'product': product})
+    product = get_object_or_404(Products, p_id=p_id)
+    return render(request, 'shop/product_details.html', {'p': product})
 
 
 def about_us(request):
