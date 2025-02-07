@@ -10,7 +10,6 @@
 
 {% block content %}
 <div class="container">
-        <h1 class="product-title">A{{p.name}}</h1>
 
         <div class="tabs">
             <button class="active">General Info</button>
@@ -28,6 +27,8 @@
 
             <div class="product-info">
                 <div class="price">
+                    <span class="p-name">{{ p.name }}</span>
+                    <br>
                     <span class="current-price">Price ৳{{ p.price }}</span>
                     <span class="original-price">৳31.00</span>
                     <span class="discount">-50%</span>
@@ -50,7 +51,18 @@
                     <button class="btn favorite"><i class="fa-solid fa-heart"></i> Favourite</button>
                     <button class="btn_1 order" ><i class="fas fa-shopping-bag"></i><a href="order.html"> Order Now</a></button>
                 </div>
+                <br>
+                <div class="descriptions">
+                    <a class="descriptions-a">About this product </a><br>
+                    <a>{{ p.brief_description }}</a><br>
+                    <br>
+                    <a class="descriptions-b">Brand:</a>
+                    <a> {{ p.brand }}</a><br>
+                    <br>
+                    <a class="descriptions-c">sku:</a>
+                    <a> {{ p.sku }}</a>
 
+                </div>
                 <div class="delivery">
                     <h4>Delivery</h4>
                     <p>Free standard shipping on orders over ৳1000 before tax, plus free returns.</p>

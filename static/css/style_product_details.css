@@ -69,13 +69,18 @@ body {
 }
 
 .product-info {
-    width: 55%;
+    width: 50%;
 }
 
 .price {
     font-size: 22px;
 }
-
+.p-name {
+    font-weight: bold;
+    padding: 0 5px 0 0;
+    font-size: 30px;
+    color: #1a6c61;
+}
 .original-price {
     text-decoration: line-through;
     color: gray;
@@ -137,6 +142,16 @@ body {
 
 }
 
+.descriptions-a{
+    margin-top: 20px;
+    font-weight: bold;
+}
+.descriptions-b{
+    font-weight: bold;
+}
+.descriptions-c{
+    font-weight: bold;
+}
 .delivery, .return-policy {
     margin-top: 20px;
 }
