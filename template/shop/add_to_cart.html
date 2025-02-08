@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Add to cart{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="../../static/css/style_add_to_cart.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block content %}
+<div class="cart-container">
+        <h2>🛒 Your Shopping Cart</h2>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {% for p in products %}
+            <tbody>
+                <tr>
+                    <td><img src="{{ p.image.url }}" alt="{{ p.name }}"></td>
+                    <td>Wireless Headphones</td>
+                    <td><input type="number" value="1" min="1"></td>
+                    <td><button class="remove-btn"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+       {% endfor %}
+        <button class="order-btn" onclick="window.location.href='order.html'">Order Now</button>
+    </div>
+
+{% endblock %}

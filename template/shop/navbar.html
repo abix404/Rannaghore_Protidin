@@ -71,7 +71,7 @@
               <li><a href="{%url 'home'%}">Home</a></li>
               <li><a href="{% url 'about_us' %}">About Us</a></li>
               <li><a href="#">Category </a></li>
-              <li><a href="#"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a></li>
+              <li><a href="{% url 'add_to_cart' %}"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a></li>
               <button><a href="{% url 'sing_in' %}">SingIn</a></button>
               <button><a href="{% url 'sing_up' %}">SingUp</a></button>
           </ul>

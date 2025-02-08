@@ -25,8 +25,12 @@ from . import settings
 
 urlpatterns = [
     path('admin/',admin.site.urls),
+
     path('', s_views.home, name='home'),
+
     path('about_us/',s_views.about_us, name='about_us'),
+
+    path('add_to_cart/',s_views.add_to_cart, name='add_to_cart'),
 
     path('sing_in/',s_views.sing_in, name='sing_in'),
 

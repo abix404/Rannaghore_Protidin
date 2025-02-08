@@ -51,7 +51,8 @@ def sing_up(request):
         form = SignupForm()
     return render(request, 'SingIn_SingUp/sing_up.html', {'form': form})
 
-
+def add_to_cart(request):
+    return render(request, template_name='shop/add_to_cart.html')
 # Logout View
 @login_required
 def sing_out_view(request):
