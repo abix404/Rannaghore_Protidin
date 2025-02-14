@@ -40,8 +40,10 @@ urlpatterns = [
 
     path(r'^favicon\.ico$',RedirectView.as_view(url='/static/assets/favicon.ico')),
 
-
-]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('cart/', s_views.cart_view, name='cart'),
+    path('cart/add/<int:product_id>/', s_views.add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:cart_id>/', s_views.remove_from_cart, name='remove_from_cart'),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

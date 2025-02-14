@@ -81,4 +81,34 @@ def order_page(request, p_id):
     return render(request, 'shop/order.html', context)
 
 
+@login_required
+def cart_view(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    total_price = sum(item.total_price() for item in cart_items)
+    unique_product_count = cart_items.count()  # Counting unique products
+
+    return render(request, 'shop/add_to_cart.html', {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'unique_product_count': unique_product_count
+    })
+
+
+@login_required
+def add_to_cart(request, p_id):
+    product = Products.objects.get(id=p_id)
+    cart_item, created = Cart.objects.get_or_create(user=request.user, p=product)
+
+    if not created:
+        cart_item.quantity += 1  # Increase quantity if already exists
+        cart_item.save()
+
+    return redirect('add_to_cart')
+
+
+@login_required
+def remove_from_cart(request, cart_id):
+    cart_item = Cart.objects.get(id=cart_id, user=request.user)
+    cart_item.delete()
+    return redirect('add_to_cart')
 

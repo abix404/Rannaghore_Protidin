@@ -32,7 +32,13 @@ def __str__(self):
 class Cart(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
     product=models.ForeignKey(Products, on_delete=models.CASCADE,blank=True,null=True)
+    quantity = models.PositiveIntegerField(default=1)
 
+    def total_price(self):
+        return self.quantity * self.product.price
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.name}"
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
