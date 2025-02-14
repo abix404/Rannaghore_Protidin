@@ -52,7 +52,7 @@ def sing_up(request):
     return render(request, 'SingIn_SingUp/sing_up.html', {'form': form})
 
 def add_to_cart(request):
-    return render(request, template_name='shop/add_to_cart.html')
+    return render(request, template_name='shop/cart.html')
 # Logout View
 @login_required
 def sing_out_view(request):
@@ -87,7 +87,7 @@ def cart_view(request):
     total_price = sum(item.total_price() for item in cart_items)
     unique_product_count = cart_items.count()  # Counting unique products
 
-    return render(request, 'shop/add_to_cart.html', {
+    return render(request, 'shop/cart.html', {
         'cart_items': cart_items,
         'total_price': total_price,
         'unique_product_count': unique_product_count
@@ -103,12 +103,12 @@ def add_to_cart(request, p_id):
         cart_item.quantity += 1  # Increase quantity if already exists
         cart_item.save()
 
-    return redirect('add_to_cart')
+    return redirect('cart')
 
 
 @login_required
 def remove_from_cart(request, cart_id):
     cart_item = Cart.objects.get(id=cart_id, user=request.user)
     cart_item.delete()
-    return redirect('add_to_cart')
+    return redirect('cart')
 

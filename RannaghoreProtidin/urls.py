@@ -6,7 +6,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+    2. Add a URL to urlpatterns:  path('', views.home.html, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
@@ -41,8 +41,8 @@ urlpatterns = [
     path(r'^favicon\.ico$',RedirectView.as_view(url='/static/assets/favicon.ico')),
 
     path('cart/', s_views.cart_view, name='cart'),
-    path('cart/add/<int:product_id>/', s_views.add_to_cart, name='add_to_cart'),
-    path('cart/remove/<int:cart_id>/', s_views.remove_from_cart, name='remove_from_cart'),
+    path('cart/add/<int:p_id>/', s_views.add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:p_id>/', s_views.remove_from_cart, name='remove_from_cart'),
 ]
 
 if settings.DEBUG:
