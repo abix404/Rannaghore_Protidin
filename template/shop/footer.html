@@ -3,46 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Footer{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style type="text/css">
         * {
             text-decoration: none;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
         html, body {
             height: 100%;
             margin: 0;
         }
+
         body {
             display: flex;
             flex-direction: column;
+            font-family: 'Arial', sans-serif;
         }
+
         .content {
             flex: 1;
         }
+
+        /* Modern Footer */
         footer {
-            background: #ededed;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 60px 0 0 0;
         }
-        .footdiv {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            padding: 10px;
-            text-align: center;
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px;
         }
-        .footdiv ul {
-            list-style: none;
-            padding: 0;
-            display: inline-flex;
-            gap: 30px;
+
+        /* Footer Main Content */
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Brand Section */
+        .footer-brand h2 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-brand p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #1a5f4f;
+            transform: translateY(-3px);
+        }
+
+        /* Footer Columns */
+        .footer-column h3 {
             font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: white;
         }
-        .footdiv ul li a {
-            color: #333333; /* Matches the white text from the image */
+
+        .footer-column ul {
+            list-style: none;
         }
-        .footdiv p {
-            text-align: center;
-            color: #333333;
-            font-size: 15px;
-            margin-top: 10px;
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: #b0b0b0;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-column ul li a:hover {
+            color: #1a5f4f;
+            padding-left: 5px;
+        }
+
+        /* Newsletter */
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #888;
+        }
+
+        .newsletter-form button {
+            padding: 12px 25px;
+            background: #1a5f4f;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: #2d7a64;
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #1a5f4f;
+        }
+
+        .copyright {
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* Payment Icons */
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .payment-methods i {
+            font-size: 24px;
+            color: #b0b0b0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                padding: 0 20px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -52,15 +229,78 @@
         <!-- Main page content goes here -->
         {% endblock %}
     </div>
+
     <footer>
-        <div class="footdiv">
-            <ul>
-                <li><a href="#">Conditions of Use</a></li>
-                <li><a href="#">Privacy Notice</a></li>
-                <li><a href="#">Consumer Health Data Privacy Disclosure</a></li>
-                <li><a href="#">Your Ads Privacy Choices</a></li>
-            </ul>
-            <p>&copy; Copyright ©2025 Bokhtear Md Abid. All rights reserved</p>
+        <div class="footer-container">
+            <!-- Main Footer Content -->
+            <div class="footer-main">
+                <!-- Brand Section -->
+                <div class="footer-brand">
+                    <h2>Rannaghore Protidin</h2>
+                    <p>Your trusted destination for baking and house-hold products. We believe in you.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{%url 'home'%}">Home</a></li>
+                        <li><a href="{% url 'about_us' %}">About Us</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p style="color: #b0b0b0; font-size: 14px; margin-bottom: 15px;">Subscribe to get special offers and updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; Copyright 2025 Bokhtear Md Abid. All rights reserved
+                </div>
+
+                <div class="footer-links">
+                    <a href="#">Conditions of Use</a>
+                    <a href="#">Privacy Notice</a>
+                    <a href="#">Consumer Health Data</a>
+                    <a href="#">Your Ads Privacy Choices</a>
+                </div>
+
+                <div class="payment-methods">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-paypal"></i>
+                    <i class="fa-brands fa-cc-amex"></i>
+                </div>
+            </div>
         </div>
     </footer>
 </body>

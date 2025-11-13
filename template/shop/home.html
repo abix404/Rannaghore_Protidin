@@ -4,46 +4,188 @@
 {% block title %}Home Page{% endblock %}
 
 {% block extra_css %}
-
-<link rel="stylesheet" href="../../static/css/home_style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="{% static 'css/home_style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
-{% block content %}
-    <section class="title">
-    <p>Welcome To Our Website</p>
-    </section>
-    <section >
-    <h2 align="center">Feature Product</h2>
-        <p align="center">Top Collections</p>
-    </section>
 
-   <section id="products" class="section-p1">
-    <p></p>
-    {% for p in products %}
-    <div class="pro-container">
-        <div class="pro">
-            <img src="{{ p.image.url }}" alt="{{ p.name }}" style="max-width: 300px;">
-            <div class="des">
-            <span>{{ p.brand }}</span>
-            <h2>{{ p.name}}</h2>
-              <div class="star">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            <h4>Price ৳{{ p.price }}</h4>
-                <div class="details">
-                <a href="{% url 'product_details' p.p_id %}">
-                <button>Details</button>
-                </a>
-                <a style="font-size: 25px" href="#"><i class="fa fa-cart-plus cart-icon" aria-hidden="true"></i></a>
+{% block content %}
+    <!-- Hero Slider -->
+    <section class="hero-slider">
+        <div class="slider-container" id="sliderContainer">
+            <!-- Slide 1 -->
+            <div class="slide slide1">
+                <div class="slide-content">
+                    <h1>Silicone Cake Mould</h1>
+                    <p>Discover our versatile collection of cake & chocolate mould.</p>
+                    <a href="#products" class="slide-btn">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide slide2">
+                <div class="slide-content">
+                    <h1>Top Collection 2025</h1>
+                    <p>Top customer choice with up to 30% off</p>
+                    <a href="#products" class="slide-btn">Explore More</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide slide3">
+                <div class="slide-content">
+                    <h1>Spatula</h1>
+                    <p>Quality products trusted by thousand housewife worldwide</p>
+                    <a href="#products" class="slide-btn">View Collection</a>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide slide4">
+                <div class="slide-content">
+                    <h1>Essentials</h1>
+                    <p>Everything you need for perfect kitchen.</p>
+                    <a href="#products" class="slide-btn">Get Started</a>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="slide slide5">
+                <div class="slide-content">
+                    <h1>Limited Time Offer</h1>
+                    <p>Save up to 50% on selected items this week only</p>
+                    <a href="#products" class="slide-btn">Shop Deals</a>
                 </div>
             </div>
         </div>
-    </div>
-   {% endfor %}
-   </section>
+
+        <!-- Slider Navigation -->
+        <button class="slider-arrow prev" onclick="moveSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-arrow next" onclick="moveSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="slider-nav">
+            <span class="slider-dot active" onclick="currentSlide(0)"></span>
+            <span class="slider-dot" onclick="currentSlide(1)"></span>
+            <span class="slider-dot" onclick="currentSlide(2)"></span>
+            <span class="slider-dot" onclick="currentSlide(3)"></span>
+            <span class="slider-dot" onclick="currentSlide(4)"></span>
+        </div>
+    </section>
+    <!-- Products Section -->
+    <section class="section-header">
+        <h2>Featured Products</h2>
+        <p>Top Collections</p>
+    </section>
+
+    <section class="products-section" id="products">
+        <div class="products-grid">
+            {% for p in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ p.image.url }}" alt="{{ p.name }}">
+                    <div class="product-badge">NEW</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">{{ p.brand }}</div>
+                    <h3 class="product-name">{{ p.name }}</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">৳{{ p.price }}</div>
+                    <div class="product-actions">
+                        <a href="{% url 'product_details' p.p_id %}" class="btn-details">View Details</a>
+                        <button class="btn-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded - initializing slider');
+
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const sliderContainer = document.getElementById('sliderContainer');
+
+        console.log('Found slides:', slides.length);
+        console.log('Found dots:', dots.length);
+        console.log('Found container:', sliderContainer);
+
+        if (!sliderContainer || slides.length === 0) {
+            console.error('Slider elements not found!');
+            return;
+        }
+
+        function updateSlider() {
+            const offset = currentIndex * 100;
+            sliderContainer.style.transform = `translateX(-${offset}%)`;
+            console.log('Moving to slide:', currentIndex, 'Offset:', offset);
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Make functions global so onclick can access them
+        window.moveSlide = function(direction) {
+            console.log('moveSlide called with direction:', direction);
+            currentIndex += direction;
+
+            if (currentIndex < 0) {
+                currentIndex = slides.length - 1;
+            } else if (currentIndex >= slides.length) {
+                currentIndex = 0;
+            }
+
+            updateSlider();
+        };
+
+        window.currentSlide = function(index) {
+            console.log('currentSlide called with index:', index);
+            currentIndex = index;
+            updateSlider();
+        };
+
+        // Auto-slide every 5 seconds
+        const autoSlide = setInterval(() => {
+            window.moveSlide(1);
+        }, 5000);
+
+        console.log('Slider initialized successfully');
+
+        // Pause auto-slide on hover
+        sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoSlide);
+            console.log('Auto-slide paused');
+        });
+
+        sliderContainer.addEventListener('mouseleave', () => {
+            setInterval(() => {
+                window.moveSlide(1);
+            }, 5000);
+            console.log('Auto-slide resumed');
+        });
+    });
+</script>
 {% endblock %}
