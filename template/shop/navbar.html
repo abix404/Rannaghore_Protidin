@@ -2,130 +2,237 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <title> Navigation Bar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Navigation Bar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style type="text/css">
-      *{
-        text-decoration:none;
-        margin-top: 0px;
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
       }
 
-      .navbar{
-        background: #F8F9FA;
-        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        padding-right: 15px;
-        padding-left: 15px ;
-        padding-bottom: 15px;
-        padding-top: 10px;
-
+      body {
+        font-family: 'Arial', sans-serif;
       }
 
-      .navdiv{
+      /* Top Banner */
+      .top-banner {
+        background: linear-gradient(135deg, #1a5f4f 0%, #2d7a64 100%);
+        color: white;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .top-banner span {
+        font-weight: 700;
+      }
+
+      /* Main Navbar */
+      .navbar {
+        background: white;
+        padding: 20px 50px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      .navdiv {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        max-width: 1400px;
+        margin: 0 auto;
       }
 
-      .logo a{
-        font-size: 35px;
-        font-weight:500;
-        color: #2A9D8F;
+      /* Logo */
+      .logo a {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a1a;
+        letter-spacing: 2px;
+        text-transform: uppercase;
       }
 
-      li{
+      /* Navigation Links */
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+      }
+
+      .nav-links li {
         list-style: none;
-        display: inline-block;
       }
 
-      li a{
-        color: #333333;
-        font-size: 18px;
-        font-weight: bold;
-        margin-right: 25px;
+      .nav-links li a {
+        color: #4a4a4a;
+        font-size: 16px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
       }
 
-      button{
-        background-color: #2A9D8F;
-        margin-left: 15px;
-        margin-top: 10px;
-        border-radius: 10px;
-        padding: 10px;
-        width: 90px;
-      }
-      button a{
-        color: white;
-        font-weight: bold;
-        font-size: 15px;
+      .nav-links li a:hover {
+        color: #1a5f4f;
       }
 
+      .nav-links li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #1a5f4f;
+        transition: width 0.3s ease;
+      }
+
+      .nav-links li a:hover::after {
+        width: 100%;
+      }
+
+      /* Icon Group */
+      .icon-group {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      .icon-group i {
+        font-size: 22px;
+        color: #4a4a4a;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .icon-group i:hover {
+        color: #1a5f4f;
+        transform: scale(1.1);
+      }
+
+      /* User Menu Dropdown */
       .user-menu {
-    position: relative;
-    cursor: pointer;
-}
+        position: relative;
+      }
 
-.user-menu {
-    font-size: 24px;
-    color: rgb(51, 51, 51);
-}
+      .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 35px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        min-width: 150px;
+        overflow: hidden;
+        z-index: 1000;
+      }
 
-.dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: transparent;
-    border-radius: 5px;
-    overflow: hidden;
-    min-width: 120px;
-    text-align: center;
-}
+      .dropdown a {
+        display: block;
+        padding: 12px 20px;
+        color: #4a4a4a;
+        font-size: 14px;
+        transition: background 0.3s ease;
+      }
 
-.dropdown a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-}
+      .dropdown a:hover {
+        background: #f5f5f5;
+        color: #1a5f4f;
+      }
 
-.dropdown a:hover {
-    background: transparent;
-        margin-top: 2px;
-        border-radius: 10px;
-        padding: 10px;
-        width: 50px;
-}
+      .dropdown button {
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 12px 20px;
+        text-align: left;
+        cursor: pointer;
+        font-size: 14px;
+        color: #4a4a4a;
+        transition: background 0.3s ease;
+      }
 
-.user-menu:hover .dropdown {
-    display: block;
-}
+      .dropdown button:hover {
+        background: #f5f5f5;
+        color: #1a5f4f;
+      }
+
+      .user-menu:hover .dropdown {
+        display: block;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 15px 20px;
+        }
+
+        .nav-links {
+          gap: 20px;
+          font-size: 14px;
+        }
+
+        .logo a {
+          font-size: 24px;
+        }
+
+        .icon-group {
+          gap: 15px;
+        }
+
+        .icon-group i {
+          font-size: 18px;
+        }
+      }
     </style>
 </head>
 <body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        Ends tonight: Save <span>Tk. 175</span>. Shop Sale
+    </div>
+
+    <!-- Main Navigation -->
     <nav class="navbar">
       <div class="navdiv">
-        <div class="logo"><a href="{%url 'home'%}">Rannaghore Protidin</a></div>
-          <ul>
-              <li><a href="{%url 'home'%}">Home</a></li>
-              <li><a href="{% url 'about_us' %}">About Us</a></li>
-              <li><a href="#">Category </a></li>
-              <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a></li>
-              <!-- User Dropdown -->
-        <li class="user-menu">
-            <i class="fa fa-user"></i>
+        <div class="logo">
+          <a href="{%url 'home'%}">Rannaghore Protidin</a>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="{%url 'home'%}">Home</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Makeup</a></li>
+          <li><a href="#">Pages</a></li>
+          <li><a href="#">Build Your Bundle</a></li>
+          <li><a href="#">Theme Features</a></li>
+        </ul>
+
+        <div class="icon-group">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <i class="fa-solid fa-palette"></i>
+
+          <!-- User Menu -->
+          <div class="user-menu">
+            <i class="fa-solid fa-user"></i>
             <div class="dropdown">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                    <button><a href="{% url 'sing_in' %}">SingIn</a></button>
-                    <button><a href="{% url 'sing_up' %}">SingUp</a></button>
-                {% endif %}
+              {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <button onclick="window.location.href='{% url 'sing_in' %}'">Sign In</button>
+                <button onclick="window.location.href='{% url 'sing_up' %}'">Sign Up</button>
+              {% endif %}
             </div>
-        </li>
-          </ul>
+          </div>
+
+          <a href="{% url 'cart' %}">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </a>
+        </div>
       </div>
     </nav>
-  </body>
-  </html>
+</body>
+</html>
