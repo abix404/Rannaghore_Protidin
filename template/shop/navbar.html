@@ -14,28 +14,61 @@
       }
 
       body {
-        font-family: 'Arial', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: #f8f9fa;
       }
 
       /* Top Banner */
       .top-banner {
-        background: linear-gradient(135deg, #1a5f4f 0%, #2d7a64 100%);
+        background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
         color: white;
         text-align: center;
-        padding: 12px 20px;
+        padding: 14px 20px;
         font-size: 14px;
         font-weight: 500;
+        letter-spacing: 0.3px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .top-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
       }
 
       .top-banner span {
         font-weight: 700;
+        background: rgba(255,255,255,0.2);
+        padding: 2px 8px;
+        border-radius: 4px;
+        position: relative;
+        z-index: 1;
       }
 
       /* Main Navbar */
       .navbar {
-        background: white;
-        padding: 20px 50px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 18px 50px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
       }
 
       .navdiv {
@@ -48,45 +81,58 @@
 
       /* Logo */
       .logo a {
-        font-size: 20px;
-        font-weight: 700;
-        color: #1a1a1a;
-        letter-spacing: 2px;
+        font-size: 22px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 1px;
         text-transform: uppercase;
+        transition: all 0.3s ease;
+      }
+
+      .logo a:hover {
+        letter-spacing: 2px;
       }
 
       /* Navigation Links */
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 40px;
+        gap: 45px;
       }
 
       .nav-links li {
         list-style: none;
-      }
-
-      .nav-links li a {
-        color: #4a4a4a;
-        font-size: 16px;
-        font-weight: 500;
-        transition: color 0.3s ease;
         position: relative;
       }
 
+      .nav-links li a {
+        color: #2d3748;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 8px 0;
+        letter-spacing: 0.3px;
+      }
+
       .nav-links li a:hover {
-        color: #1a5f4f;
+        color: #0f766e;
       }
 
       .nav-links li a::after {
         content: '';
         position: absolute;
         width: 0;
-        height: 2px;
-        bottom: -5px;
-        left: 0;
-        background-color: #1a5f4f;
-        transition: width 0.3s ease;
+        height: 3px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #0f766e, #14b8a6);
+        transition: width 0.4s ease;
+        border-radius: 2px;
       }
 
       .nav-links li a:hover::after {
@@ -97,19 +143,30 @@
       .icon-group {
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: 20px;
       }
 
-      .icon-group i {
-        font-size: 22px;
-        color: #4a4a4a;
+      .icon-group i,
+      .icon-group a {
+        font-size: 20px;
+        color: #2d3748;
         cursor: pointer;
-        transition: color 0.3s ease, transform 0.3s ease;
+        transition: all 0.3s ease;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: transparent;
+        position: relative;
       }
 
-      .icon-group i:hover {
-        color: #1a5f4f;
-        transform: scale(1.1);
+      .icon-group i:hover,
+      .icon-group a:hover {
+        background: rgba(15, 118, 110, 0.1);
+        color: #0f766e;
+        transform: translateY(-2px);
       }
 
       /* User Menu Dropdown */
@@ -117,51 +174,94 @@
         position: relative;
       }
 
+      .user-menu > i {
+        cursor: pointer;
+      }
+
       .dropdown {
         display: none;
         position: absolute;
         right: 0;
-        top: 35px;
+        top: 55px;
         background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        min-width: 150px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+        min-width: 180px;
         overflow: hidden;
         z-index: 1000;
+        animation: fadeIn 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .dropdown::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        right: 15px;
+        width: 12px;
+        height: 12px;
+        background: white;
+        transform: rotate(45deg);
+        border-left: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid rgba(0,0,0,0.05);
       }
 
       .dropdown a {
         display: block;
-        padding: 12px 20px;
-        color: #4a4a4a;
+        padding: 14px 20px;
+        color: #2d3748;
         font-size: 14px;
-        transition: background 0.3s ease;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
       }
 
       .dropdown a:hover {
-        background: #f5f5f5;
-        color: #1a5f4f;
+        background: linear-gradient(90deg, rgba(15, 118, 110, 0.05), transparent);
+        color: #0f766e;
+        border-left-color: #0f766e;
+        padding-left: 24px;
       }
 
       .dropdown button {
         width: 100%;
         background: transparent;
         border: none;
-        padding: 12px 20px;
+        padding: 14px 20px;
         text-align: left;
         cursor: pointer;
         font-size: 14px;
-        color: #4a4a4a;
-        transition: background 0.3s ease;
+        font-weight: 500;
+        color: #2d3748;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
       }
 
       .dropdown button:hover {
-        background: #f5f5f5;
-        color: #1a5f4f;
+        background: linear-gradient(90deg, rgba(15, 118, 110, 0.05), transparent);
+        color: #0f766e;
+        border-left-color: #0f766e;
+        padding-left: 24px;
       }
 
-      .user-menu:hover .dropdown {
+      .user-menu.active .dropdown {
         display: block;
+      }
+
+      /* Shopping bag badge */
+      .bag-icon {
+        position: relative;
       }
 
       /* Responsive Design */
@@ -176,15 +276,18 @@
         }
 
         .logo a {
-          font-size: 24px;
+          font-size: 18px;
         }
 
         .icon-group {
-          gap: 15px;
+          gap: 12px;
         }
 
-        .icon-group i {
+        .icon-group i,
+        .icon-group a {
           font-size: 18px;
+          width: 38px;
+          height: 38px;
         }
       }
     </style>
@@ -192,7 +295,7 @@
 <body>
     <!-- Top Banner -->
     <div class="top-banner">
-        Ends tonight: Save <span>Tk. 175</span>. Shop Sale
+        Ends tonight: Save <span>Tk. 175</span>. Shop Now!
     </div>
 
     <!-- Main Navigation -->
@@ -214,23 +317,33 @@
           <i class="fa-solid fa-magnifying-glass"></i>
 
           <!-- User Menu -->
-          <div class="user-menu">
+          <div class="user-menu" onclick="this.classList.toggle('active')">
             <i class="fa-solid fa-user"></i>
             <div class="dropdown">
               {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}">Logout</a>
               {% else %}
-                <button onclick="window.location.href='{% url 'sing_in' %}'">Sign In</button>
-                <button onclick="window.location.href='{% url 'sing_up' %}'">Sign Up</button>
+                <button onclick="event.stopPropagation(); window.location.href='{% url 'sing_in' %}'">Sign In</button>
+                <button onclick="event.stopPropagation(); window.location.href='{% url 'sing_up' %}'">Sign Up</button>
               {% endif %}
             </div>
           </div>
 
-          <a href="{% url 'cart' %}">
+          <a href="{% url 'cart' %}" class="bag-icon">
             <i class="fa-solid fa-bag-shopping"></i>
           </a>
         </div>
       </div>
     </nav>
+
+    <script>
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(event) {
+        const userMenu = document.querySelector('.user-menu');
+        if (userMenu && !userMenu.contains(event.target)) {
+          userMenu.classList.remove('active');
+        }
+      });
+    </script>
 </body>
 </html>

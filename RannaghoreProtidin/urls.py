@@ -38,7 +38,7 @@ urlpatterns = [
 
     path('product/<uuid:p_id>/', s_views.product_details, name='product_details'),
 
-    path(r'^favicon\.ico$',RedirectView.as_view(url='/static/assets/favicon.ico')),
+    path("favicon.ico", RedirectView.as_view(url="/static/assets/favicon.ico")),
 
     path('cart/', s_views.cart_view, name='cart'),
     path('cart/add/<int:p_id>/', s_views.add_to_cart, name='add_to_cart'),
