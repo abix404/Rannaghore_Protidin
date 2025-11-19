@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Complete Your Order{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_buy_now.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="checkout-container">
+    <!-- Progress Steps -->
+    <div class="progress-steps">
+        <div class="step active">
+            <div class="step-number">1</div>
+            <span>Shipping Info</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <span>Payment</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <span>Confirmation</span>
+        </div>
+    </div>
+
+    <div class="checkout-main">
+        <!-- Left Section: Order Form -->
+        <div class="checkout-form">
+            <form id="orderForm" method="POST" action="{% url 'process_order' %}">
+                {% csrf_token %}
+
+                <!-- Customer Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <i class="fa-solid fa-user"></i>
+                        <h2>Customer Information</h2>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="first_name" required placeholder="Enter your first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="last_name" required placeholder="Enter your last name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+880 1XXX-XXXXXX">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Address -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>Shipping Address</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Street Address *</label>
+                        <input type="text" id="address" name="address" required placeholder="House no, Street name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Area *</label>
+                            <input type="text" id="area" name="area" required placeholder="Area/Thana">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" name="postal_code" placeholder="1200">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="Bangladesh" selected>Bangladesh</option>
+                                <option value="India">India</option>
+                                <option value="Pakistan">Pakistan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <i class="fa-solid fa-note-sticky"></i>
+                        <h2>Additional Information</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderNotes">Order Notes (Optional)</label>
+                        <textarea id="orderNotes" name="order_notes" rows="4" placeholder="Any special instructions for delivery..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <h2>Payment Method</h2>
+                    </div>
+
+                    <div class="payment-options">
+                        <!-- Cash on Delivery -->
+                        <div class="payment-option">
+                            <input type="radio" id="cod" name="payment_method" value="cod" checked>
+                            <label for="cod" class="payment-card">
+                                <div class="payment-icon cod-icon">
+                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <h3>Cash on Delivery</h3>
+                                    <p>Pay when you receive your order</p>
+                                </div>
+                                <div class="payment-check">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Online Payment -->
+                        <div class="payment-option">
+                            <input type="radio" id="online" name="payment_method" value="online">
+                            <label for="online" class="payment-card">
+                                <div class="payment-icon online-icon">
+                                    <i class="fa-solid fa-wallet"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <h3>Pay Now</h3>
+                                    <p>Secure payment via bKash, Nagad, Visa</p>
+                                </div>
+                                <div class="payment-check">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Online Payment Details (Hidden by default) -->
+                    <div id="onlinePaymentDetails" class="payment-details-section" style="display: none;">
+                        <div class="payment-methods-grid">
+                            <div class="method-card">
+                                <input type="radio" id="bkash" name="online_method" value="bkash">
+                                <label for="bkash">
+                                    <img src="{% static 'media/products_img/BKash_Logo.png' %}" alt="bKash">
+                                    <span>bKash</span>
+                                </label>
+                            </div>
+                            <div class="method-card">
+                                <input type="radio" id="nagad" name="online_method" value="nagad">
+                                <label for="nagad">
+                                    <img src="{% static 'media/products_img/Nagad_Logo.png' %}" alt="Nagad">
+                                    <span>Nagad</span>
+                                </label>
+                            </div>
+                            <div class="method-card">
+                                <input type="radio" id="visa" name="online_method" value="visa">
+                                <label for="visa">
+                                    <img src="{% static 'media/products_img/Visa_Logo.png' %}" alt="Visa">
+                                    <span>Visa/Mastercard</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="terms-section">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span>I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-order-btn">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Place Order Securely</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Right Section: Order Summary -->
+        <div class="order-summary">
+            <div class="summary-card">
+                <h2 class="summary-title">Order Summary</h2>
+
+                <!-- Product Items -->
+                <div class="summary-items">
+                    <div class="summary-item">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <div class="item-info">
+                            <h4>{{ product.name }}</h4>
+                            <p>Quantity: <span id="itemQuantity">1</span></p>
+                            <p>Size: <span>Medium</span></p>
+                        </div>
+                        <div class="item-price">৳{{ product.price }}</div>
+                    </div>
+                </div>
+
+                <!-- Promo Code -->
+                <div class="promo-section">
+                    <input type="text" placeholder="Enter promo code" id="promoCode">
+                    <button type="button" class="apply-btn">Apply</button>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">৳{{ product.price }}</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Shipping</span>
+                        <span id="shipping">৳60</span>
+                    </div>
+                    <div class="price-row discount" style="display: none;">
+                        <span>Discount</span>
+                        <span id="discount">-৳0</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total</span>
+                        <span id="total">৳{{ product.price|add:60 }}</span>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <div class="badge">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <span>Fast Delivery</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Easy Returns</span>
+                    </div>
+                </div>
+
+                <!-- Support -->
+                <div class="support-section">
+                    <i class="fa-solid fa-headset"></i>
+                    <div>
+                        <h4>Need Help?</h4>
+                        <p>Call us: <a href="tel:+8801234567890">+880 1234-567890</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Payment method toggle
+    const codRadio = document.getElementById('cod');
+    const onlineRadio = document.getElementById('online');
+    const onlineDetails = document.getElementById('onlinePaymentDetails');
+
+    function togglePaymentDetails() {
+        if (onlineRadio.checked) {
+            onlineDetails.style.display = 'block';
+        } else {
+            onlineDetails.style.display = 'none';
+        }
+    }
+
+    codRadio.addEventListener('change', togglePaymentDetails);
+    onlineRadio.addEventListener('change', togglePaymentDetails);
+
+    // Form validation
+    const form = document.getElementById('orderForm');
+    form.addEventListener('submit', function(e) {
+        const terms = document.getElementById('terms');
+        if (!terms.checked) {
+            e.preventDefault();
+            alert('Please accept the Terms & Conditions to continue.');
+            return false;
+        }
+
+        // Check if online payment is selected
+        if (onlineRadio.checked) {
+            const onlineMethod = document.querySelector('input[name="online_method"]:checked');
+            if (!onlineMethod) {
+                e.preventDefault();
+                alert('Please select a payment method.');
+                return false;
+            }
+        }
+    });
+
+    // Promo code application (demo)
+    const applyBtn = document.querySelector('.apply-btn');
+    const promoInput = document.getElementById('promoCode');
+
+    applyBtn.addEventListener('click', function() {
+        const code = promoInput.value.trim().toUpperCase();
+        if (code === 'SAVE10') {
+            alert('Promo code applied! 10% discount added.');
+            // Add discount logic here
+        } else if (code) {
+            alert('Invalid promo code.');
+        }
+    });
+</script>
+{% endblock %}

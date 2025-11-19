@@ -40,6 +40,7 @@ urlpatterns = [
 
     path("favicon.ico", RedirectView.as_view(url="/static/assets/favicon.ico")),
 
+    path('buy_now/', s_views.buy_now, name='buy_now'),
     path('cart/', s_views.cart_view, name='cart'),
     path('cart/add/<int:p_id>/', s_views.add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:p_id>/', s_views.remove_from_cart, name='remove_from_cart'),

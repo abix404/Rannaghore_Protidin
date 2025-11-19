@@ -60,7 +60,7 @@ def sing_out_view(request):
     return redirect('sing_in')  # Redirect to login page after logout
 
 @login_required
-def order_page(request, p_id):
+def buy_now(request, p_id):
     try:
         product = Products.objects.get(id=p_id)
     except Products.DoesNotExist:
@@ -78,7 +78,7 @@ def order_page(request, p_id):
         'status': 'Ordered'  # Default status
     }
 
-    return render(request, 'shop/order.html', context)
+    return render(request, 'shop/buy_now.html', context)
 
 
 @login_required
