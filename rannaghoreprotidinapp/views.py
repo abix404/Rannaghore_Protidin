@@ -7,17 +7,20 @@ from .forms import SignupForm
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.template import Context
+from django.db.models import Q
 from .models import *
 from .models import Products, Order
+
 
 # Create your views here.
 
 def home(request):
-    products=Products.objects.all()
-    context={
-        'products' : products,
+    products = Products.objects.all()
+    context = {
+        'products': products,
     }
     return render(request, template_name='shop/home.html', context=context)
+
 
 def product_details(request, p_id):
     product = get_object_or_404(Products, p_id=p_id)
@@ -26,6 +29,7 @@ def product_details(request, p_id):
 
 def about_us(request):
     return render(request, template_name='shop/about_us.html')
+
 
 def sing_in(request):
     if request.method == "POST":
@@ -41,6 +45,7 @@ def sing_in(request):
         form = AuthenticationForm()
     return render(request, 'SingIn_SingUp/sing_in.html', {'form': form})
 
+
 def sing_up(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -51,13 +56,13 @@ def sing_up(request):
         form = SignupForm()
     return render(request, 'SingIn_SingUp/sing_up.html', {'form': form})
 
-def add_to_cart(request):
-    return render(request, template_name='shop/cart.html')
+
 # Logout View
 @login_required
 def sing_out_view(request):
     logout(request)
     return redirect('sing_in')  # Redirect to login page after logout
+
 
 @login_required
 def buy_now(request, p_id):
@@ -96,8 +101,8 @@ def cart_view(request):
 
 @login_required
 def add_to_cart(request, p_id):
-    product = Products.objects.get(id=p_id)
-    cart_item, created = Cart.objects.get_or_create(user=request.user, p=product)
+    product = Products.objects.get(p_id=p_id)
+    cart_item, created = Cart.objects.get_or_create(user=request.user, product=product)
 
     if not created:
         cart_item.quantity += 1  # Increase quantity if already exists
@@ -112,3 +117,30 @@ def remove_from_cart(request, cart_id):
     cart_item.delete()
     return redirect('cart')
 
+
+def all_products(request):
+    # Get search query from GET parameters
+    search_query = request.GET.get('search', '')
+
+    # Filter products based on search query
+    if search_query:
+        products = Products.objects.filter(
+            Q(name__icontains=search_query) |
+            Q(brand__icontains=search_query) |
+            Q(categories__icontains=search_query) |
+            Q(short_description__icontains=search_query)
+        )
+    else:
+        products = Products.objects.all()
+
+    # Get all unique categories for filter
+    categories = Products.objects.values_list('categories', flat=True).distinct()
+
+    context = {
+        'products': products,
+        'search_query': search_query,
+        'categories': categories,
+        'product_count': products.count()
+    }
+
+    return render(request, template_name='shop/all_products.html', context=context)

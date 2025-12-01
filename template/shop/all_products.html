@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}All Products{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_all_products.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>🛒 All Products</h1>
+            <form method="GET" action="{% url 'all_products' %}" class="search-section">
+                <div class="search-box">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search products by name, brand, category..."
+                        value="{{ search_query }}"
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="search-btn">🔍 Search</button>
+                </div>
+            </form>
+        </div>
+
+        {% if search_query %}
+        <div class="results-info">
+            <p>Showing <strong>{{ product_count }}</strong> result(s) for "<strong>{{ search_query }}</strong>"</p>
+            <a href="{% url 'all_products' %}" class="clear-search">✕ Clear Search</a>
+        </div>
+        {% else %}
+        <div class="results-info">
+            <p>Total <strong>{{ product_count }}</strong> products available</p>
+        </div>
+        {% endif %}
+
+        {% if products %}
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                <div class="product-info">
+                    {% if product.categories %}
+                    <span class="product-category">{{ product.categories }}</span>
+                    {% endif %}
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-brand">Brand: {{ product.brand }}</p>
+                    <p class="product-description">{{ product.short_description }}</p>
+                    <div class="product-price">৳{{ product.price }}</div>
+                    <div class="product-actions">
+                        <a href="{% url 'product_details' product.p_id %}" class="btn btn-view">View Details</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'add_to_cart' product.p_id %}" class="btn btn-cart">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-products">
+            <h2>😔 No Products Found</h2>
+            {% if search_query %}
+            <p>We couldn't find any products matching "{{ search_query }}"</p>
+            <a href="{% url 'all_products' %}" class="btn btn-view" style="display: inline-block; width: auto; padding: 15px 40px;">Browse All Products</a>
+            {% else %}
+            <p>There are no products available at the moment.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

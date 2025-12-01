@@ -44,6 +44,8 @@ urlpatterns = [
     path('cart/', s_views.cart_view, name='cart'),
     path('cart/add/<int:p_id>/', s_views.add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:p_id>/', s_views.remove_from_cart, name='remove_from_cart'),
+
+    path ('all_products/', s_views.all_products, name='all_products')
 ]
 
 if settings.DEBUG:
