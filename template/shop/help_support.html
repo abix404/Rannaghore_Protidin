@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Help & Support - Rannaghore Protidin{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style_help_support.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="help-support-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>How Can We Help You?</h1>
+            <p>Get answers to your questions and reach out to our support team</p>
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search for help articles, FAQs, or topics...">
+                <button type="button" id="searchBtn">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Contact Cards -->
+    <div class="quick-contact-section">
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="card-icon phone-icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <h3>Call Us</h3>
+                <p>Mon-Fri: 9AM - 6PM</p>
+                <a href="tel:+8801234567890" class="contact-link">+880 1234-567890</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-icon email-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p>We'll respond within 24 hours</p>
+                <a href="mailto:support@rannaghore.com" class="contact-link">support@rannaghore.com</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-icon chat-icon">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <h3>Live Chat</h3>
+                <p>Get instant help</p>
+                <button class="contact-link chat-btn">Start Chat</button>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-icon whatsapp-icon">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h3>WhatsApp</h3>
+                <p>Quick support</p>
+                <a href="https://wa.me/8801234567890" class="contact-link" target="_blank">Message Us</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions</p>
+        </div>
+
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="orders">Orders</button>
+            <button class="category-btn" data-category="shipping">Shipping</button>
+            <button class="category-btn" data-category="payment">Payment</button>
+            <button class="category-btn" data-category="returns">Returns</button>
+        </div>
+
+        <div class="faq-list">
+            <!-- Orders FAQs -->
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    <h3>How do I track my order?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can track your order by logging into your account and visiting the "My Orders" section. You'll receive a tracking number via email once your order is shipped. Alternatively, you can contact our support team with your order number.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    <h3>Can I modify or cancel my order?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can modify or cancel your order within 2 hours of placing it. After that, the order enters our processing system. Please contact our support team immediately if you need to make changes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    <h3>What happens if my order is delayed?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If your order is delayed beyond the estimated delivery date, please contact our support team. We'll investigate the issue and provide you with updated information. In some cases, we may offer compensation for significant delays.</p>
+                </div>
+            </div>
+
+            <!-- Shipping FAQs -->
+            <div class="faq-item" data-category="shipping">
+                <div class="faq-question">
+                    <h3>What are the shipping charges?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Shipping charges are ৳60 for delivery inside Dhaka and ৳120 for delivery outside Dhaka. Orders over ৳1000 qualify for free shipping. Delivery typically takes 1-2 business days inside Dhaka and 2-3 business days outside Dhaka.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="shipping">
+                <div class="faq-question">
+                    <h3>Do you deliver internationally?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, we only deliver within Bangladesh. We're working on expanding our shipping options to include international delivery. Please check back later or contact us for updates.</p>
+                </div>
+            </div>
+
+            <!-- Payment FAQs -->
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <h3>What payment methods do you accept?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept Cash on Delivery (COD), bKash, Nagad, and Visa/Mastercard. All online payments are processed through secure payment gateways to ensure your financial information is protected.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <h3>Is it safe to pay online?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, absolutely! We use industry-standard SSL encryption and secure payment gateways. Your payment information is never stored on our servers, and all transactions are processed through trusted third-party payment providers.</p>
+                </div>
+            </div>
+
+            <!-- Returns FAQs -->
+            <div class="faq-item" data-category="returns">
+                <div class="faq-question">
+                    <h3>What is your return policy?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer a 30-day return policy for most items. Products must be unused, in original packaging, and in the same condition you received them. Please contact our support team to initiate a return.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="returns">
+                <div class="faq-question">
+                    <h3>How long does it take to process a refund?</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Once we receive your returned item, we'll inspect it and process your refund within 5-7 business days. The refund will be credited to your original payment method. For Cash on Delivery orders, we'll issue a bank transfer or bKash payment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-form-section">
+        <div class="section-header">
+            <h2>Still Need Help?</h2>
+            <p>Send us a message and we'll get back to you as soon as possible</p>
+        </div>
+
+        <div class="form-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form id="supportForm" method="POST" action="{% url 'submit_support_ticket' %}">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+880 1XXX-XXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="order_number">Order Number (if applicable)</label>
+                        <input type="text" id="order_number" name="order_number" placeholder="ORD-XXXXXXXX">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a topic</option>
+                        <option value="order_inquiry">Order Inquiry</option>
+                        <option value="shipping_issue">Shipping Issue</option>
+                        <option value="payment_problem">Payment Problem</option>
+                        <option value="product_question">Product Question</option>
+                        <option value="return_request">Return Request</option>
+                        <option value="technical_issue">Technical Issue</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="Please describe your issue or question in detail..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="attachment">Attachment (Optional)</label>
+                    <input type="file" id="attachment" name="attachment" accept="image/*,.pdf">
+                    <small>Accepted formats: JPG, PNG, PDF (Max 5MB)</small>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Submit Ticket</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Help Topics Section -->
+    <div class="help-topics-section">
+        <div class="section-header">
+            <h2>Browse Help Topics</h2>
+            <p>Explore our comprehensive help guides</p>
+        </div>
+
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <h3>Shopping Guide</h3>
+                <p>Learn how to browse products, add to cart, and checkout</p>
+                <a href="#" class="topic-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fa-solid fa-user-circle"></i>
+                </div>
+                <h3>Account Management</h3>
+                <p>Manage your profile, addresses, and preferences</p>
+                <a href="#" class="topic-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Security & Privacy</h3>
+                <p>Your data security and privacy information</p>
+                <a href="#" class="topic-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <h3>Promotions & Offers</h3>
+                <p>Learn about our discounts and promo codes</p>
+                <a href="#" class="topic-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Category Filter
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.getAttribute('data-category');
+
+            // Update active button
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter FAQ items
+            faqItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (category === 'all' || itemCategory === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    function searchFAQs() {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+            const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+
+            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Reset category filter
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-category="all"]').classList.add('active');
+    }
+
+    searchBtn.addEventListener('click', searchFAQs);
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchFAQs();
+        }
+    });
+</script>
+{% endblock %}

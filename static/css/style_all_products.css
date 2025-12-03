@@ -8,7 +8,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
         }
 
         .container {
@@ -63,7 +62,7 @@
             right: 5px;
             top: 50%;
             transform: translateY(-50%);
-            background: #667eea;
+            background: #2d7a64;
             color: white;
             border: none;
             padding: 10px 25px;
@@ -74,7 +73,7 @@
         }
 
         .search-btn:hover {
-            background: #5568d3;
+            background: #00b3a4;
         }
 
         .results-info {
@@ -94,7 +93,7 @@
         }
 
         .results-info strong {
-            color: #667eea;
+            color: #2d7a64;
         }
 
         .clear-search {
@@ -118,6 +117,7 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
+            padding: 20px;
         }
 
         .product-card {

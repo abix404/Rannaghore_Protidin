@@ -1,18 +1,22 @@
 from itertools import product
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import SignupForm
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Context
 from django.db.models import Q
 from .models import *
-from .models import Products, Order
+from django.contrib import messages
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+from django.http import JsonResponse
+from .models import SupportTicket, FAQ
+from datetime import datetime
+import uuid
 
 
-# Create your views here.
+# my views here.
 
 def home(request):
     products = Products.objects.all()
@@ -144,3 +148,335 @@ def all_products(request):
     }
 
     return render(request, template_name='shop/all_products.html', context=context)
+
+
+# Help & Support Page
+def help_support(request):
+    """
+    Display the help and support page with FAQs
+    """
+    # Get all FAQs ordered by category and order
+    faqs = FAQ.objects.filter(is_active=True).order_by('category', 'order')
+
+    context = {
+        'faqs': faqs,
+    }
+
+    return render(request, 'shop/help_support.html', context)
+
+
+# Submit Support Ticket
+def submit_support_ticket(request):
+    """
+    Handle support ticket submission
+    """
+    if request.method == 'POST':
+        try:
+            # Get form data
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone', '')
+            order_number = request.POST.get('order_number', '')
+            subject = request.POST.get('subject')
+            message = request.POST.get('message')
+            attachment = request.FILES.get('attachment', None)
+
+            # Validate required fields
+            if not all([name, email, subject, message]):
+                messages.error(request, 'Please fill in all required fields.')
+                return redirect('help_support')
+
+            # Generate ticket number
+            ticket_number = generate_ticket_number()
+
+            # Create support ticket
+            ticket = SupportTicket.objects.create(
+                ticket_number=ticket_number,
+                name=name,
+                email=email,
+                phone=phone,
+                order_number=order_number,
+                subject=subject,
+                message=message,
+                status='open',
+            )
+
+            # Handle attachment if provided
+            if attachment:
+                # Validate file size (5MB max)
+                if attachment.size > 5 * 1024 * 1024:
+                    messages.error(request, 'Attachment size must be less than 5MB.')
+                    ticket.delete()
+                    return redirect('help_support')
+
+                ticket.attachment = attachment
+                ticket.save()
+
+            # Send confirmation email to customer
+            send_ticket_confirmation_email(ticket)
+
+            # Send notification email to support team
+            send_support_team_notification(ticket)
+
+            messages.success(
+                request,
+                f'Your support ticket has been submitted successfully! '
+                f'Ticket Number: {ticket_number}. '
+                f'We will respond to your email within 24 hours.'
+            )
+
+            return redirect('help_support')
+
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return redirect('help_support')
+
+    return redirect('help_support')
+
+
+# Generate Ticket Number
+def generate_ticket_number():
+    """
+    Generate a unique ticket number
+    """
+    return f'TICKET-{uuid.uuid4().hex[:8].upper()}'
+
+
+# Send Ticket Confirmation Email
+def send_ticket_confirmation_email(ticket):
+    """
+    Send confirmation email to customer
+    """
+    try:
+        subject = f'Support Ticket Received - {ticket.ticket_number}'
+        message = f"""
+Dear {ticket.name},
+
+Thank you for contacting Rannaghore Protidin Support!
+
+We have received your support ticket and our team will review it shortly.
+
+Ticket Details:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ticket Number: {ticket.ticket_number}
+Subject: {ticket.get_subject_display()}
+Status: {ticket.get_status_display()}
+Submitted: {ticket.created_at.strftime('%B %d, %Y at %I:%M %p')}
+
+Your Message:
+{ticket.message}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What happens next?
+• Our support team will review your ticket
+• You'll receive a response within 24 hours
+• Check your email for updates
+
+You can reply directly to this email if you have additional information to add to your ticket.
+
+Need urgent help?
+📞 Call us: +880 1234-567890 (Mon-Fri, 9AM-6PM)
+💬 WhatsApp: +880 1234-567890
+
+Thank you for your patience!
+
+Best regards,
+Rannaghore Protidin Support Team
+        """
+
+        email = EmailMessage(
+            subject=subject,
+            body=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[ticket.email],
+        )
+
+        email.send(fail_silently=True)
+
+    except Exception as e:
+        print(f"Customer email sending failed: {str(e)}")
+
+
+# Send Support Team Notification
+def send_support_team_notification(ticket):
+    """
+    Send notification email to support team
+    """
+    try:
+        subject = f'New Support Ticket - {ticket.ticket_number}'
+        message = f"""
+New Support Ticket Received
+
+Ticket Number: {ticket.ticket_number}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Customer Information:
+Name: {ticket.name}
+Email: {ticket.email}
+Phone: {ticket.phone or 'Not provided'}
+Order Number: {ticket.order_number or 'Not provided'}
+
+Subject: {ticket.get_subject_display()}
+Status: {ticket.get_status_display()}
+Submitted: {ticket.created_at.strftime('%B %d, %Y at %I:%M %p')}
+
+Message:
+{ticket.message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Action Required:
+Please review and respond to this ticket within 24 hours.
+
+View ticket in admin panel:
+{settings.SITE_URL}/admin/app/supportticket/{ticket.id}/
+        """
+
+        # Send to support team email
+        support_email = getattr(settings, 'SUPPORT_EMAIL', settings.DEFAULT_FROM_EMAIL)
+
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[support_email],
+            fail_silently=True,
+        )
+
+    except Exception as e:
+        print(f"Support team notification failed: {str(e)}")
+
+
+# Search FAQs (AJAX)
+def search_faqs(request):
+    """
+    Search FAQs based on query
+    """
+    if request.method == 'GET':
+        query = request.GET.get('q', '').strip().lower()
+
+        if not query:
+            return JsonResponse({'results': []})
+
+        # Search in questions and answers
+        faqs = FAQ.objects.filter(
+            is_active=True
+        ).filter(
+            models.Q(question__icontains=query) |
+            models.Q(answer__icontains=query)
+        )[:10]
+
+        results = [
+            {
+                'id': faq.id,
+                'question': faq.question,
+                'answer': faq.answer,
+                'category': faq.category
+            }
+            for faq in faqs
+        ]
+
+        return JsonResponse({'results': results})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+# Get FAQs by Category (AJAX)
+def get_faqs_by_category(request):
+    """
+    Get FAQs filtered by category
+    """
+    if request.method == 'GET':
+        category = request.GET.get('category', 'all')
+
+        if category == 'all':
+            faqs = FAQ.objects.filter(is_active=True)
+        else:
+            faqs = FAQ.objects.filter(is_active=True, category=category)
+
+        results = [
+            {
+                'id': faq.id,
+                'question': faq.question,
+                'answer': faq.answer,
+                'category': faq.category
+            }
+            for faq in faqs
+        ]
+
+        return JsonResponse({'results': results})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+# Track Ticket Status
+def track_ticket(request):
+    """
+    Allow customers to track their support ticket
+    """
+    ticket = None
+
+    if request.method == 'POST':
+        ticket_number = request.POST.get('ticket_number')
+        email = request.POST.get('email')
+
+        try:
+            ticket = SupportTicket.objects.get(
+                ticket_number=ticket_number,
+                email=email
+            )
+        except SupportTicket.DoesNotExist:
+            messages.error(request, 'Ticket not found. Please check your ticket number and email.')
+
+    context = {
+        'ticket': ticket,
+    }
+
+    return render(request, 'track_ticket.html', context)
+
+
+# Close Ticket (Customer)
+def close_ticket(request, ticket_id):
+    """
+    Allow customer to close their ticket
+    """
+    if request.method == 'POST':
+        try:
+            ticket = SupportTicket.objects.get(id=ticket_id)
+            ticket.status = 'closed'
+            ticket.closed_at = datetime.now()
+            ticket.save()
+
+            messages.success(request, 'Your ticket has been closed successfully.')
+        except SupportTicket.DoesNotExist:
+            messages.error(request, 'Ticket not found.')
+
+    return redirect('help_support')
+
+
+# Rate Support (Customer Satisfaction)
+def rate_support(request, ticket_id):
+    """
+    Allow customer to rate support quality
+    """
+    if request.method == 'POST':
+        try:
+            ticket = SupportTicket.objects.get(id=ticket_id)
+            rating = int(request.POST.get('rating', 0))
+            feedback = request.POST.get('feedback', '')
+
+            if 1 <= rating <= 5:
+                ticket.rating = rating
+                ticket.feedback = feedback
+                ticket.save()
+
+                messages.success(request, 'Thank you for your feedback!')
+            else:
+                messages.error(request, 'Invalid rating value.')
+
+        except SupportTicket.DoesNotExist:
+            messages.error(request, 'Ticket not found.')
+        except ValueError:
+            messages.error(request, 'Invalid rating value.')
+
+    return redirect('help_support')

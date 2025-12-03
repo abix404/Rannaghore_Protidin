@@ -45,7 +45,18 @@ urlpatterns = [
     path('cart/add/<int:p_id>/', s_views.add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:p_id>/', s_views.remove_from_cart, name='remove_from_cart'),
 
-    path ('all_products/', s_views.all_products, name='all_products')
+    path ('all_products/', s_views.all_products, name='all_products'),
+
+    path('help_support/', s_views.help_support, name='help_support'),
+    path('submit-support-ticket/', s_views.submit_support_ticket, name='submit_support_ticket'),
+    path('track-ticket/', s_views.track_ticket, name='track_ticket'),
+    path('close-ticket/<int:ticket_id>/', s_views.close_ticket, name='close_ticket'),
+    path('rate-support/<int:ticket_id>/', s_views.rate_support, name='rate_support'),
+
+    # AJAX endpoints
+    path('search-faqs/', s_views.search_faqs, name='search_faqs'),
+    path('get-faqs-by-category/', s_views.get_faqs_by_category, name='get_faqs_by_category'),
+
 ]
 
 if settings.DEBUG:
