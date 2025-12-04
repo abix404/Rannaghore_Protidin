@@ -1,68 +1,327 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}About Us{% endblock %}
+{% block title %}About Us - Rannaghore Protidin{% endblock %}
 
 {% block extra_css %}
-
-<link rel="stylesheet" href="../../static/css/style_about_us.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="{% static 'css/style_about_us.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock %}
+
 {% block content %}
-<div class="about_us">
-<h1 align="center">About Us – Rannaghore Protidin</h1><br>
-    <div class="pera1">
-     <a class="as1">● Your One-Stop Destination for Baking & Household Essentials</a><br>
-     <a style="font-size: 20px">Welcome to Rannaghore Protidin, where we bring joy to your kitchen with high-quality
-         baking tools and household essentials. Whether you're a professional baker or someone
-         who loves to create sweet memories at home, we have everything you need—from cake molds and
-         cookie cutters to premium cake toppings and essential kitchenware.</a>
-
-    </div> <br>
-    <div class="pera2">
-        <a class="as1">● Our Story</a><br>
-        <a style="font-size: 20px"> At Rannaghore Protidin, we believe that every home has a story, and every delicious
-            creation starts with the right tools. Our journey began with a simple idea: to make
-            baking and cooking easier, more enjoyable, and accessible to everyone. With passion
-            and dedication, we have curated a collection of top-quality products that cater to
-            every baking enthusiast and home cook.</a>
-    </div> <br>
-    <div class="pera3">
-        <a class="as1">● Why Choose Us?</a><br>
-        <a style="font-size: 20px">
-            ✅ Wide Variety of Products – From baking molds to decorative toppings, we offer an extensive range of tools for all your culinary needs.
-            ✅ High-Quality & Affordable – We ensure that every product meets the highest standards of durability and performance, all at competitive prices.
-            ✅ Passion for Baking – We are more than just a store; we are a community of baking lovers who share the same passion for creativity in the kitchen.
-            ✅ Customer Satisfaction – Your happiness is our priority. We are committed to providing exceptional service and a seamless shopping experience.
-
-        </a>
-    </div> <br>
-    <div class="pera4">
-        <a class="as1">● Meet the Developer</a><br>
-        <a style="font-size: 20px">
-            This wonderful platform has been developed by Bokhtear Md Abid,
-            a dedicated and talented web developer who has turned our vision
-            into reality. His expertise and commitment have helped create a smooth,
-            user-friendly, and visually appealing shopping experience for our customers.
-        </a>
-    </div> <br>
-
-    <div class="pera5">
-        <a class="as1">● Join Our Community</a><br>
-        <a style="font-size: 20px">
-            We invite you to explore our collection, try new recipes, and
-            make every moment in your kitchen special. Follow us on social
-            media and stay updated with the latest trends, exclusive discounts,
-            and baking tips!
-        </a>
-    </div> <br>
-
-    <div class="pera6">
-        <a class="as1">📩 Have a question? </a><br>
-        <a style="font-size: 20px">Feel free to reach out—we’re always here to help!</a>
+<div class="about-us-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-badge">Est. 2020</span>
+            <h1>Welcome to Rannaghore Protidin</h1>
+            <p class="hero-subtitle">Bringing Quality Products to Your Doorstep</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label">Products</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Districts</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <h3 align="center">📍 Rannaghore Protidin – Bringing Baking to Life!</h3><br>
+
+    <!-- Our Story Section -->
+    <div class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="{% static 'images/about-story.jpg' %}" alt="Our Story">
+                    <div class="image-badge">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Made with Love</span>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <span class="section-label">Our Story</span>
+                    <h2>From a Small Dream to Your Trusted Shopping Partner</h2>
+                    <p>Founded in 2020, Rannaghore Protidin started with a simple mission: to provide high-quality kitchen essentials and daily necessities to every household in Bangladesh. What began as a small venture has grown into a trusted name in e-commerce.</p>
+                    <p>We understand the importance of quality, convenience, and trust. That's why we carefully curate every product in our collection, ensuring it meets our high standards before it reaches your home.</p>
+
+                    <div class="story-highlights">
+                        <div class="highlight-item">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <div>
+                                <h4>Quality Assured</h4>
+                                <p>Every product is thoroughly vetted for quality</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fa-solid fa-truck-fast"></i>
+                            <div>
+                                <h4>Fast Delivery</h4>
+                                <p>Quick and reliable shipping across Bangladesh</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fa-solid fa-headset"></i>
+                            <div>
+                                <h4>24/7 Support</h4>
+                                <p>Always here to help with your orders</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission & Vision Section -->
+    <div class="mission-vision-section">
+        <div class="container">
+            <div class="mv-grid">
+                <div class="mv-card mission-card">
+                    <div class="mv-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize online shopping in Bangladesh by providing exceptional quality products, unbeatable prices, and outstanding customer service. We aim to make online shopping accessible, convenient, and trustworthy for everyone.</p>
+                </div>
+                <div class="mv-card vision-card">
+                    <div class="mv-icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To become Bangladesh's most loved e-commerce platform, known for reliability, quality, and customer satisfaction. We envision a future where every household trusts Rannaghore Protidin for their daily needs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Values Section -->
+    <div class="values-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">What We Stand For</span>
+                <h2>Our Core Values</h2>
+                <p>The principles that guide everything we do</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>Trust & Integrity</h3>
+                    <p>We believe in transparent business practices and building lasting relationships with our customers.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h3>Quality First</h3>
+                    <p>Every product we offer meets our stringent quality standards, ensuring value for your money.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3>Customer Focus</h3>
+                    <p>Your satisfaction is our priority. We listen, learn, and constantly improve to serve you better.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We embrace new technologies and ideas to enhance your shopping experience continuously.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to eco-friendly practices and reducing our environmental footprint.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>We support local businesses and contribute to the communities we serve.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Meet Our Team</span>
+                <h2>The People Behind Rannaghore Protidin</h2>
+                <p>Dedicated professionals working to serve you better</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="{% static 'media/founder_img.png' %}" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Bokhtear Md Abid</h3>
+                        <p class="team-role">Founder & CEO</p>
+                        <p class="team-bio">Visionary leader with 7+ years in e-commerce</p>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="{% static 'media/delivery_partner.png' %}" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>RedX</h3>
+                        <p class="team-role">Delivery Partner</p>
+                        <p class="team-bio">Convenience at your doorstep.</p>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="{% static 'media/founder_img.png' %}" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Bokhtear Md Abid</h3>
+                        <p class="team-role">Website Developer</p>
+                        <p class="team-bio">Experience of 4+ years in Web development</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Timeline -->
+    <div class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Journey</span>
+                <h2>Milestones & Achievements</h2>
+                <p>Growing together with our community</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020</span>
+                        <h3>The Beginning</h3>
+                        <p>Rannaghore Protidin was founded with a vision to transform online shopping in Bangladesh.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2021</span>
+                        <h3>Rapid Growth</h3>
+                        <p>Reached 1,000+ customers and expanded to 20 districts across Bangladesh.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2022</span>
+                        <h3>Major Expansion</h3>
+                        <p>Launched mobile app and introduced 24/7 customer support service.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <h3>Award Recognition</h3>
+                        <p>Won "Best E-commerce Platform" award and reached 5,000+ products.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <h3>Nationwide Coverage</h3>
+                        <p>Now serving all 64 districts with 10,000+ happy customers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our Growing Family</h2>
+                <p>Experience the difference of shopping with Rannaghore Protidin</p>
+                <div class="cta-buttons">
+                    <a href="{% url 'home' %}" class="btn-primary">
+                        <i class="fa-solid fa-shopping-bag"></i>
+                        Start Shopping
+                    </a>
+                    <a href="{% url 'help_support' %}" class="btn-secondary">
+                        <i class="fa-solid fa-headset"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script>
+    // Animate stats on scroll
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.stat-item, .value-card, .team-card, .timeline-item').forEach(el => {
+        observer.observe(el);
+    });
+</script>
 {% endblock %}
