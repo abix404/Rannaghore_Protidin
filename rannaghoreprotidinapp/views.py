@@ -36,17 +36,32 @@ def about_us(request):
 
 
 def sing_in(request):
+    # Redirect if user is already logged in
+    if request.user.is_authenticated:
+        return redirect('home')
+
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
+
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Redirect to homepage after login
+                messages.success(request, f'Welcome back, {username}!')
+
+                # Redirect to 'next' parameter if it exists, otherwise go to home
+                next_url = request.GET.get('next', 'home')
+                return redirect(next_url)
+            else:
+                messages.error(request, 'Invalid username or password.')
+        else:
+            # Display form errors
+            messages.error(request, 'Invalid username or password. Please try again.')
     else:
         form = AuthenticationForm()
+
     return render(request, 'SingIn_SingUp/sing_in.html', {'form': form})
 
 
@@ -54,18 +69,51 @@ def sing_up(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('sing_in')  # Redirect to login page after successful signup
+            # 1. Save the User (Username, First Name, Last Name, Email, Password)
+            user = form.save()
+
+            # 2. Get the Mobile Number and save to UserInfo
+            mobile_no = form.cleaned_data.get('mobile_no')
+
+            # 3. Create UserInfo record (keeping original structure without user FK)
+            try:
+                UserInfo.objects.create(
+                    first_name=user.first_name,
+                    last_name=user.last_name,
+                    mobile_no=int(mobile_no),  # Convert to integer as per your model
+                    email=user.email
+                )
+                messages.success(request, "Account created successfully! Please login.")
+                return redirect('sing_in')
+            except Exception as e:
+                # If UserInfo creation fails, delete the user and show error
+                user.delete()
+                messages.error(request, f"Registration failed: {str(e)}")
+        else:
+            # Display specific form errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
         form = SignupForm()
+
     return render(request, 'SingIn_SingUp/sing_up.html', {'form': form})
 
 
-# Logout View
 @login_required
 def sing_out_view(request):
-    logout(request)
-    return redirect('sing_in')  # Redirect to login page after logout
+    """
+    Handle user logout
+    """
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'You have been successfully logged out.')
+        return redirect('home')
+    else:
+        # Allow GET request for logout as well
+        logout(request)
+        messages.success(request, 'You have been successfully logged out.')
+        return redirect('home')
 
 
 @login_required

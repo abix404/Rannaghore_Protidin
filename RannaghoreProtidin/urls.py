@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('sing_up/',s_views.sing_up, name='sing_up'),
 
+    path('logout/', s_views.sing_out_view, name='logout'),
+
     path('product/<uuid:p_id>/', s_views.product_details, name='product_details'),
 
     path("favicon.ico", RedirectView.as_view(url="/static/assets/favicon.ico")),

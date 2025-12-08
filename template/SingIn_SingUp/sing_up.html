@@ -3,9 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="../../static/css/style_sing_up.css">
     <link href='{% static "css/style_sing_up.css" %}' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -13,25 +12,73 @@
         <div class="signup-box">
             <p class="login-text">Have an account? <a href="{% url 'sing_in' %}">Login</a></p>
             <h1>Sign Up</h1>
-            <form>
+
+            <!-- Display messages (success/error) -->
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="POST" action="">
+                {% csrf_token %}
+
+                <!-- Username -->
                 <div class="input-group">
-                    <input type="text" placeholder="First name" required>
-                    <input type="text" placeholder="Last name" required>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <span class="error">{{ form.username.errors.0 }}</span>
+                    {% endif %}
                 </div>
-                <input type="number" placeholder="Mobile No" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+
+                <!-- First Name and Last Name -->
+                <div class="input-group">
+                    {{ form.first_name }}
+                    {{ form.last_name }}
+                    {% if form.first_name.errors %}
+                        <span class="error">{{ form.first_name.errors.0 }}</span>
+                    {% endif %}
+                    {% if form.last_name.errors %}
+                        <span class="error">{{ form.last_name.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile Number -->
+                {{ form.mobile_no }}
+                {% if form.mobile_no.errors %}
+                    <span class="error">{{ form.mobile_no.errors.0 }}</span>
+                {% endif %}
+
+                <!-- Email -->
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <span class="error">{{ form.email.errors.0 }}</span>
+                {% endif %}
+
+                <!-- Password -->
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <span class="error">{{ form.password1.errors.0 }}</span>
+                {% endif %}
+
+                <!-- Confirm Password -->
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <span class="error">{{ form.password2.errors.0 }}</span>
+                {% endif %}
+
+                <!-- Non-field errors (like password mismatch) -->
+                {% if form.non_field_errors %}
+                    <div class="error">
+                        {{ form.non_field_errors.0 }}
+                    </div>
+                {% endif %}
+
                 <button type="submit" class="register-btn">Register</button>
-                <div class="footer-options">
-                    <label>
-                        <input type="checkbox"> Remember Me
-                    </label>
-                    <a href="#">Terms & conditions</a>
-                </div>
-                     <div class="back-to-home">
-                        <p> Back to
-                            <a href="{% url 'home'%}">Home</a> </p>
-                     </div>
             </form>
         </div>
     </div>

@@ -6,11 +6,21 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class UserInfo(models.Model):
-    first_name=models.CharField(max_length=15,blank=False,null=False)
-    last_name=models.CharField(max_length=15,blank=False,null=False)
-    mobile_no=models.IntegerField(blank=False,null=False)
-    email=models.EmailField()
-    bio=models.CharField(max_length=200,null=True,blank=True)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='profile',
+        null=True,  # Allow null temporarily for migration
+        blank=True
+    )
+    first_name = models.CharField(max_length=15, blank=False, null=False)
+    last_name = models.CharField(max_length=15, blank=False, null=False)
+    mobile_no = models.CharField(max_length=15, blank=False, null=False)  # Changed to CharField
+    email = models.EmailField()
+    bio = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.email}"
 
 class Products(models.Model):
     name=models.CharField(max_length=100,blank=False,null=False)

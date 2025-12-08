@@ -10,6 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    /* Ensure this path is correct for your Django static settings */
     background: url("/static/BG_2.jpg") 50% 0 no-repeat fixed;
     background-size: cover;
 }
@@ -25,21 +26,20 @@ body {
 .signup-box {
     background: transparent;
     backdrop-filter: blur(20px);
-    padding: 50px 30px;
+    -webkit-backdrop-filter: blur(20px); /* For Safari support */
+    padding: 40px 30px; /* Reduced top/bottom padding slightly to fit more fields */
     border-radius: 15px;
     text-align: center;
     color: white;
     width: 400px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-
-
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for glass effect */
 }
 
 .signup-box h1 {
     font-size: 1.8em;
     margin-bottom: 20px;
     font-weight: 400;
-
 }
 
 .login-text {
@@ -70,52 +70,58 @@ form {
     flex: 1;
 }
 
+/* UPDATED: Added input[type="tel"] for the mobile field */
 input[type="text"],
 input[type="number"],
 input[type="email"],
+input[type="tel"],
 input[type="password"] {
-
     width: 100%;
     padding: 12px 15px;
     margin-bottom: 15px;
-    border: none;
-    border-radius: 8px;
     background: transparent;
-    color: #fff;
-    font-size: 1em;
     outline: none;
     transition: background-color 0.3s ease;
+
+    /* Consolidated Border Styles */
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 30px;
     font-size: 15px;
     color: #fff;
-    padding: 15px 15px 15px 15px;
 }
 
+/* UPDATED: Added placeholder color for tel */
 input[type="text"]::placeholder,
 input[type="number"]::placeholder,
 input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
 input[type="password"]::placeholder {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7); /* Slightly transparent white looks better */
 }
 
+/* Focus state for better UX */
+input:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.1);
+}
 
 .register-btn {
     width: 100%;
     padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px; /* Matched to inputs for consistency */
     background-color: rgba(255, 255, 255, 0.8);
     color: #333;
     font-size: 1em;
     cursor: pointer;
     margin-top: 10px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .register-btn:hover {
     background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.02); /* Slight pop effect */
 }
 
 .footer-options {
@@ -126,6 +132,7 @@ input[type="password"]::placeholder {
     font-size: 0.8em;
     color: #ddd;
     width: 100%;
+    padding: 0 10px; /* Added small padding to align with inputs */
 }
 
 .footer-options a {
@@ -136,23 +143,60 @@ input[type="password"]::placeholder {
 .footer-options label {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .footer-options input[type="checkbox"] {
     margin-right: 5px;
     accent-color: #fff;
+    cursor: pointer;
 }
-.back-to-home{
-    font-size:14.5px;
+
+.back-to-home {
+    font-size: 14.5px;
     text-align: center;
-    margin: 20px 0 15px;
+    margin: 20px 0 5px; /* Reduced bottom margin */
 }
+
 .back-to-home p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
+    transition: color 0.3s;
 }
-.back-to-home p a:hover{
+
+.back-to-home p a:hover {
     text-decoration: underline;
     color: aqua;
+}
+
+/* Error message styling */
+.error {
+    color: #ff3333;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
