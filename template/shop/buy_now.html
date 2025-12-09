@@ -34,6 +34,10 @@
             <form id="orderForm" method="POST" action="{% url 'process_order' %}">
                 {% csrf_token %}
 
+                <!-- Hidden Fields for Product Info -->
+                <input type="hidden" name="product_id" value="{{ product.p_id }}">
+                <input type="hidden" name="quantity" value="1">
+
                 <!-- Customer Information -->
                 <div class="form-section">
                     <div class="section-header">
@@ -44,18 +48,18 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name *</label>
-                            <input type="text" id="firstName" name="first_name" required placeholder="Enter your first name">
+                            <input type="text" id="firstName" name="first_name" value="{{ user.first_name }}" required placeholder="Enter your first name">
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name *</label>
-                            <input type="text" id="lastName" name="last_name" required placeholder="Enter your last name">
+                            <input type="text" id="lastName" name="last_name" value="{{ user.last_name }}" required placeholder="Enter your last name">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required placeholder="example@email.com">
+                            <input type="email" id="email" name="email" value="{{ user.email }}" required placeholder="example@email.com">
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number *</label>
@@ -211,11 +215,15 @@
                 <!-- Product Items -->
                 <div class="summary-items">
                     <div class="summary-item">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{% static 'media/products_img/no_image.png' %}" alt="{{ product.name }}">
+                        {% endif %}
                         <div class="item-info">
                             <h4>{{ product.name }}</h4>
                             <p>Quantity: <span id="itemQuantity">1</span></p>
-                            <p>Size: <span>Medium</span></p>
+                            <p>Brand: <span>{{ product.brand }}</span></p>
                         </div>
                         <div class="item-price">৳{{ product.price }}</div>
                     </div>

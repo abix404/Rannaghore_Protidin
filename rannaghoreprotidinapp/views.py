@@ -118,24 +118,149 @@ def sing_out_view(request):
 
 @login_required
 def buy_now(request, p_id):
+    """
+    Handle immediate purchase - show checkout page
+    """
     try:
-        product = Products.objects.get(id=p_id)
+        product = Products.objects.get(p_id=p_id)  # Use p_id, not id
     except Products.DoesNotExist:
-        return redirect('home')  # Redirect if product doesn't exist
-
-    # Generate Order Number (Example: RP-0001)
-    order_number = f"RP-{Order.objects.count() + 1:04d}"
+        messages.error(request, 'Product not found.')
+        return redirect('home')
 
     # Pass data to the template
     context = {
         'user_name': request.user.username,
-        'order_number': order_number,
+        'product': product,  # Pass the entire product object
         'product_name': product.name,
         'quantity': 1,  # Default quantity
-        'status': 'Ordered'  # Default status
+        'total_price': product.price,  # Add total price
     }
 
     return render(request, 'shop/buy_now.html', context)
+
+
+@login_required
+def process_order(request):
+    """
+    Process the order after checkout form submission
+    """
+    if request.method == 'POST':
+        try:
+            # Get form data
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            address = request.POST.get('address')
+            city = request.POST.get('city')
+            area = request.POST.get('area')
+            postal_code = request.POST.get('postal_code', '')
+            country = request.POST.get('country')
+            order_notes = request.POST.get('order_notes', '')
+            payment_method = request.POST.get('payment_method')
+            online_method = request.POST.get('online_method', '')
+
+            # Get product ID from hidden field
+            product_id = request.POST.get('product_id')
+            quantity = int(request.POST.get('quantity', 1))
+
+            # Validate required fields
+            if not all([first_name, last_name, email, phone, address, city, area, country, payment_method]):
+                messages.error(request, 'Please fill in all required fields.')
+                return redirect('buy_now', p_id=product_id)
+
+            # Get the product
+            product = Products.objects.get(p_id=product_id)
+
+            # Generate order number
+            order_number = f"RP-{Order.objects.count() + 1:04d}"
+
+            # Create order (you'll need to expand your Order model)
+            order = Order.objects.create(
+                user=request.user,
+                product=product,
+                order_id=Order.objects.count() + 1
+            )
+
+            # Send confirmation email
+            send_order_confirmation_email(
+                email=email,
+                order_number=order_number,
+                customer_name=f"{first_name} {last_name}",
+                product_name=product.name,
+                total_amount=product.price + 60  # Including shipping
+            )
+
+            messages.success(
+                request,
+                f'Order placed successfully! Order Number: {order_number}. '
+                f'You will receive a confirmation email shortly.'
+            )
+
+            return redirect('order_confirmation', order_id=order.id)
+
+        except Products.DoesNotExist:
+            messages.error(request, 'Product not found.')
+            return redirect('home')
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return redirect('home')
+
+    return redirect('home')
+
+
+def send_order_confirmation_email(email, order_number, customer_name, product_name, total_amount):
+    """
+    Send order confirmation email to customer
+    """
+    try:
+        subject = f'Order Confirmation - {order_number}'
+        message = f"""
+Dear {customer_name},
+
+Thank you for your order!
+
+Order Details:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Order Number: {order_number}
+Product: {product_name}
+Total Amount: ৳{total_amount}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your order is being processed and will be delivered soon.
+We'll send you tracking information once your order is shipped.
+
+Thank you for shopping with Rannaghore Protidin!
+
+Best regards,
+Rannaghore Protidin Team
+        """
+
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=True,
+        )
+    except Exception as e:
+        print(f"Order confirmation email failed: {str(e)}")
+
+
+@login_required
+def order_confirmation(request, order_id):
+    """
+    Display order confirmation page
+    """
+    try:
+        order = Order.objects.get(id=order_id, user=request.user)
+        context = {
+            'order': order,
+        }
+        return render(request, 'shop/order_confirmation.html', context)
+    except Order.DoesNotExist:
+        messages.error(request, 'Order not found.')
+        return redirect('home')
 
 
 @login_required

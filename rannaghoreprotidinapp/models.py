@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class UserInfo(models.Model):
@@ -22,26 +23,29 @@ class UserInfo(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.email}"
 
+
 class Products(models.Model):
-    name=models.CharField(max_length=100,blank=False,null=False)
-    p_id=models.UUIDField(
+    name = models.CharField(max_length=100, blank=False, null=False)
+    p_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
     )
-    price=models.IntegerField(blank=True,null=True)
-    categories=models.CharField(max_length=50,blank=True,null=True)
-    short_description=models.CharField(max_length=100, blank=False,null=False)
-    brief_description=models.CharField(max_length=500)
-    brand=models.CharField(max_length=20)
-    image=models.ImageField(upload_to='products_img', blank=True,null=True, default='no_image.png')
-    sku=models.IntegerField(unique=True)
-def __str__(self):
-    return self.name
+    price = models.IntegerField(blank=True, null=True)
+    categories = models.CharField(max_length=50, blank=True, null=True)
+    short_description = models.CharField(max_length=100, blank=False, null=False)
+    brief_description = models.CharField(max_length=500)
+    brand = models.CharField(max_length=20)
+    image = models.ImageField(upload_to='products_img', blank=True, null=True, default='no_image.png')
+    sku = models.IntegerField(unique=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Cart(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
-    product=models.ForeignKey(Products, on_delete=models.CASCADE,blank=True,null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
     quantity = models.PositiveIntegerField(default=1)
 
     def total_price(self):
@@ -50,11 +54,102 @@ class Cart(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.product.name}"
 
+
 class Order(models.Model):
+    """
+    Order model with status tracking
+    """
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+        ('processing', 'Processing'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+        ('cancelled', 'Cancelled'),
+        ('refunded', 'Refunded'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
-    ctrate_date=models.DateTimeField(auto_now_add=True,auto_now=False)
-    order_id=models.IntegerField(unique=True)
+    ctrate_date = models.DateTimeField(auto_now_add=True, auto_now=False)
+    order_id = models.IntegerField(unique=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending',
+        help_text='Current status of the order'
+    )
+    admin_notes = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Internal notes for this order (not visible to customer)'
+    )
+
+    # Timestamps for tracking
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+    shipped_at = models.DateTimeField(null=True, blank=True)
+    delivered_at = models.DateTimeField(null=True, blank=True)
+    cancelled_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-ctrate_date']
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+
+    def __str__(self):
+        return f"Order #{self.order_id} - {self.user.username if self.user else 'Guest'}"
+
+    def confirm_order(self):
+        """Confirm the order"""
+        self.status = 'confirmed'
+        self.confirmed_at = timezone.now()
+        self.save()
+
+    def mark_as_processing(self):
+        """Mark order as processing"""
+        self.status = 'processing'
+        self.save()
+
+    def mark_as_shipped(self):
+        """Mark order as shipped"""
+        self.status = 'shipped'
+        self.shipped_at = timezone.now()
+        self.save()
+
+    def mark_as_delivered(self):
+        """Mark order as delivered"""
+        self.status = 'delivered'
+        self.delivered_at = timezone.now()
+        self.save()
+
+    def cancel_order(self):
+        """Cancel the order"""
+        self.status = 'cancelled'
+        self.cancelled_at = timezone.now()
+        self.save()
+
+    def refund_order(self):
+        """Mark order as refunded"""
+        self.status = 'refunded'
+        self.save()
+
+    @property
+    def total_amount(self):
+        """Calculate total order amount"""
+        if self.product:
+            return self.product.price
+        return 0
+
+    @property
+    def processing_time(self):
+        """Calculate how long order has been processing (in hours)"""
+        if self.status in ['delivered', 'cancelled'] and self.delivered_at:
+            delta = self.delivered_at - self.ctrate_date
+        elif self.cancelled_at and self.status == 'cancelled':
+            delta = self.cancelled_at - self.ctrate_date
+        else:
+            delta = timezone.now() - self.ctrate_date
+        return round(delta.total_seconds() / 3600, 2)
 
 
 class SupportTicket(models.Model):
@@ -258,6 +353,3 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
-
-
-
