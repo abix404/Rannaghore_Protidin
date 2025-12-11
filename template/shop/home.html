@@ -102,7 +102,9 @@
                     <div class="product-actions">
                         <a href="{% url 'product_details' p.p_id %}" class="btn-details">View Details</a>
                         <button class="btn-cart">
-                            <i class="fas fa-shopping-cart"></i>
+                            <a href="{% url 'add_to_cart' p.p_id %}" title="Add to Cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
                         </button>
                     </div>
                 </div>

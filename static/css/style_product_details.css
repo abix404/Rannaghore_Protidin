@@ -436,6 +436,7 @@ body {
     align-items: center;
     gap: 10px;
     justify-content: center;
+    text-decoration: none; /* Remove underline from links */
 }
 
 .btn-primary {
@@ -448,6 +449,11 @@ body {
 .btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(15, 118, 110, 0.4);
+    color: white;
+}
+
+.btn-primary:visited {
+    color: white;
 }
 
 .btn-secondary {
@@ -458,12 +464,26 @@ body {
 }
 
 .btn-buy {
-    color:white;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-buy:visited {
+    color: white;
+}
+
+.btn-buy:hover {
+    color: white; /
 }
 
 .btn-secondary:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(31, 41, 55, 0.4);
+    color: white; /* Keep white on hover */
+}
+
+.btn-secondary:visited {
+    color: white;
 }
 
 .btn-icon {

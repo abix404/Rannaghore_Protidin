@@ -1,46 +1,250 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Cart {% endblock %}
+{% block title %}Shopping Cart - Rannaghore Protidin{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'css/style_cart.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/style_cart.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-<div class="cart-container">
-    <h2>🛒 Your Shopping Cart</h2>
+<div class="cart-page-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="{% url 'home' %}">Home</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Shopping Cart</span>
+    </nav>
+
+    <div class="cart-header">
+        <h1><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</h1>
+        <span class="item-count">{{ unique_product_count }} {% if unique_product_count == 1 %}Item{% else %}Items{% endif %}</span>
+    </div>
 
     {% if cart_items %}
-        <p><strong>Total Unique Products:</strong> {{ unique_product_count }}</p>
+    <div class="cart-layout">
+        <!-- Cart Items Section -->
+        <div class="cart-items-section">
+            {% for item in cart_items %}
+            <div class="cart-item-card">
+                <div class="item-image">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                </div>
 
-        <table class="cart-table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                <tr>
-                    <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></td>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>৳{{ item.total_price }}</td>
-                    <td><a href="{% url 'remove_from_cart' item.id %}" class="remove-btn">🗑</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <h3>Total Price: ৳{{ total_price }}</h3>
-        <button class="order-btn" onclick="window.location.href='{% url 'order_page' %}'">Order Now</button>
+                <div class="item-details">
+                    <h3 class="item-name">{{ item.product.name }}</h3>
+                    <p class="item-brand">Brand: {{ item.product.brand }}</p>
+                    <p class="item-sku">SKU: {{ item.product.sku }}</p>
+
+                    <div class="item-actions">
+                        <!-- Quantity Controls -->
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" data-item-id="{{ item.id }}">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <input type="number" class="qty-input" value="{{ item.quantity }}" min="1" max="99" readonly>
+                            <button class="qty-btn plus" data-item-id="{{ item.id }}">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <!-- Remove Button -->
+                        <button class="remove-btn" onclick="confirmRemove('{{ item.id }}', '{{ item.product.name }}')">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Remove</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="item-price">
+                    <p class="unit-price">৳{{ item.product.price }} each</p>
+                    <p class="total-price">৳{{ item.total_price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Continue Shopping Button -->
+            <a href="{% url 'home' %}" class="continue-shopping">
+                <i class="fa-solid fa-arrow-left"></i>
+                Continue Shopping
+            </a>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="order-summary-section">
+            <div class="summary-card">
+                <h2>Order Summary</h2>
+
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Subtotal ({{ unique_product_count }} items)</span>
+                        <span>৳{{ total_price }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span class="shipping-text">Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row discount-row" style="display: none;">
+                        <span>Discount</span>
+                        <span class="discount-amount">-৳0</span>
+                    </div>
+                </div>
+
+                <!-- Promo Code Section -->
+                <div class="promo-section">
+                    <input type="text" id="promoCode" placeholder="Enter promo code">
+                    <button type="button" id="applyPromo" class="apply-promo-btn">Apply</button>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span class="total-amount">৳{{ total_price }}</span>
+                </div>
+
+                <!-- Checkout Button -->
+                <button class="checkout-btn" onclick="window.location.href='{% url 'process_order' %}'">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Proceed to Checkout</span>
+                </button>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <p>We Accept:</p>
+                    <div class="payment-icons">
+                        <img src="{% static 'media/products_img/Visa_Logo.png' %}" alt="Visa">
+                        <img src="{% static 'media/products_img/BKash_Logo.png' %}" alt="bKash">
+                        <img src="{% static 'media/products_img/Nagad_Logo.png' %}" alt="Nagad">
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <div class="badge">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <span>Fast Delivery</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Info -->
+            <div class="support-card">
+                <i class="fa-solid fa-headset"></i>
+                <div>
+                    <h4>Need Help?</h4>
+                    <p>Call: <a href="tel:+8801234567890">+880 1234-567890</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% else %}
-        <p>Your cart is empty.</p>
+    <!-- Empty Cart State -->
+    <div class="empty-cart">
+        <div class="empty-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <h2>Your Cart is Empty</h2>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="{% url 'home' %}" class="shop-now-btn">
+            <i class="fa-solid fa-bag-shopping"></i>
+            Start Shopping
+        </a>
+    </div>
     {% endif %}
 </div>
+
+<!-- Confirmation Modal -->
+<div id="removeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h3>Remove Item</h3>
+        </div>
+        <p id="modalMessage">Are you sure you want to remove this item from your cart?</p>
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn" onclick="closeModal()">Cancel</button>
+            <a id="confirmRemoveLink" href="#" class="modal-btn confirm-btn">Remove</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Remove Item Confirmation Modal
+    function confirmRemove(itemId, productName) {
+        const modal = document.getElementById('removeModal');
+        const message = document.getElementById('modalMessage');
+        const confirmLink = document.getElementById('confirmRemoveLink');
+
+        message.textContent = `Are you sure you want to remove "${productName}" from your cart?`;
+        confirmLink.href = `/cart/remove/${itemId}/`; // Adjust URL as needed
+
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('removeModal').style.display = 'none';
+    }
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+        const modal = document.getElementById('removeModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+
+    // Quantity Update (AJAX would be better for production)
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const itemId = this.getAttribute('data-item-id');
+            const input = this.parentElement.querySelector('.qty-input');
+            const currentValue = parseInt(input.value);
+
+            if (this.classList.contains('minus') && currentValue > 1) {
+                input.value = currentValue - 1;
+                // TODO: Send AJAX request to update quantity
+                updateCartQuantity(itemId, currentValue - 1);
+            } else if (this.classList.contains('plus') && currentValue < 99) {
+                input.value = currentValue + 1;
+                // TODO: Send AJAX request to update quantity
+                updateCartQuantity(itemId, currentValue + 1);
+            }
+        });
+    });
+
+    // Update cart quantity (placeholder function)
+    function updateCartQuantity(itemId, quantity) {
+        // Implement AJAX call to update cart
+        console.log(`Update item ${itemId} to quantity ${quantity}`);
+        // After successful update, reload page or update prices dynamically
+        // location.reload();
+    }
+
+    // Apply Promo Code
+    document.getElementById('applyPromo')?.addEventListener('click', function() {
+        const promoCode = document.getElementById('promoCode').value.trim();
+
+        if (!promoCode) {
+            alert('Please enter a promo code');
+            return;
+        }
+
+        // TODO: Implement promo code validation via AJAX
+        console.log('Applying promo code:', promoCode);
+
+        // Demo: Show success message
+        // In production, validate via backend
+        if (promoCode.toUpperCase() === 'SAVE10') {
+            alert('Promo code applied! 10% discount added.');
+            // Update UI to show discount
+        } else {
+            alert('Invalid promo code');
+        }
+    });
+</script>
 {% endblock %}

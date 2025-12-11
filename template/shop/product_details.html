@@ -96,21 +96,19 @@
                 </div>
             </div>
 
-            <!-- Action Buttons -->
             <div class="action-buttons">
-                <button class="btn-primary add-cart">
+                <button class="btn-primary add-cart" onclick="window.location.href='{% url 'add_to_cart' p.p_id %}' ">
                     <i class="fa-solid fa-cart-shopping"></i>
                     Add to Cart
                 </button>
-                <button class="btn-secondary buy-now">
+                <button class="btn-secondary buy-now" onclick="window.location.href='{% url 'buy_now' p.p_id %}'">
                     <i class="fa-solid fa-bolt"></i>
-                    <a href="{% url 'buy_now' p.p_id %}">Buy Now</a>
+                    Buy Now
                 </button>
                 <button class="btn-icon wishlist">
                     <i class="fa-regular fa-heart"></i>
                 </button>
             </div>
-
             <!-- Product Meta Info -->
             <div class="product-meta">
                 <div class="meta-row">
