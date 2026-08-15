@@ -1,8 +1,7 @@
-<div align="center">
+<div align="center"> 
 <h1>Rannaghore Protidin</h1>
 <h5>Trusted Essentials for Every Home Chef</h5>  
 </div>
-
 <div align="center">
 
 [![Render Deployment](https://img.shields.io/badge/render-deployed-brightgreen?logo=render&style=for-the-badge)](https://rannaghore-protidin.onrender.com)
