@@ -1,4 +1,7 @@
-# Rannaghore Protidin
+<div align="center">
+<h1>Rannaghore Protidin</h1>
+<h5>Trusted Essentials for Every Home Chef</h5>  
+</div>
 
 <div align="center">
 
