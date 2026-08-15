@@ -1,18 +1,33 @@
-<div align="center"> 
-<h1>Rannaghore Protidin</h1>
-<h5>Trusted Essentials for Every Home Chef</h5>
-<strong>Live:</strong> <a href="https://rannaghore-protidin.onrender.com/">rannaghore-protidin.onrender.com</a>
-</div>
 <div align="center">
 
-[![Render Deployment](https://img.shields.io/badge/render-deployed-brightgreen?logo=render&style=for-the-badge)](https://rannaghore-protidin.onrender.com)
-[![Django](https://img.shields.io/badge/Django-5.2.5-092E20?logo=django&style=for-the-badge)](https://www.djangoproject.com/)
-[![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&style=for-the-badge&logoColor=white)](https://www.python.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql&style=for-the-badge&logoColor=white)](https://neon.tech/)
+# Rannaghore Protidin
 
-**Your One-Stop Shop for Household & Baking Essentials**
+#### Your One-Stop Shop for Household & Baking Essentials
 
-[Live Demo](https://rannaghore-protidin.onrender.com) • [Report Bug](https://github.com/bokhtearmdabid/Rannaghore_Protidin/issues) • [Request Feature](https://github.com/bokhtearmdabid/Rannaghore_Protidin/issues)
+<p>
+   <strong>Live:</strong> <a href="https://rannaghore-protidin.onrender.com/">rannaghore-protidin.onrender.com</a>
+</p>
+
+<p>
+  <a href="https://rannaghore-protidin.onrender.com">
+    <img src="https://img.shields.io/badge/render-deployed-brightgreen?logo=render&style=for-the-badge" alt="Render Deployment" />
+  </a>
+  <a href="https://www.djangoproject.com/">
+    <img src="https://img.shields.io/badge/Django-5.2.5-092E20?logo=django&style=for-the-badge" alt="Django" />
+  </a>
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/Python-3.13-3776AB?logo=python&style=for-the-badge&logoColor=white" alt="Python" />
+  </a>
+  <a href="https://neon.tech/">
+    <img src="https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql&style=for-the-badge&logoColor=white" alt="PostgreSQL" />
+  </a>
+</p>
+
+<p>
+  <a href="https://github.com/bokhtearmdabid/Rannaghore_Protidin/issues">Report Bug</a>
+  &nbsp;•&nbsp;
+  <a href="https://github.com/bokhtearmdabid/Rannaghore_Protidin/issues">Request Feature</a>
+</p>
 
 </div>
 
